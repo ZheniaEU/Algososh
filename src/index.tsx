@@ -4,7 +4,7 @@ import { App } from "./components/app/app"
 import reportWebVitals from "./reportWebVitals"
 
 import "./index.css"
-import "./fonts/fonts.css"
+import "./vendor/fonts/fonts.css"
 import "./components/ui/box.css"
 import "./components/ui/common.css"
 

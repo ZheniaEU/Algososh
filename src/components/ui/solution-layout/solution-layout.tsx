@@ -18,9 +18,7 @@ export const SolutionLayout: FC<SolutionLayoutProps> = ({ extraClass = "", title
             <h1 className={`text text_type_h2 text_color_h1 ${styles.title}`}>
                МБОУ АЛГОСОШ
             </h1>
-            <span
-               className={`text text_type_fibonacci text_color_secondary ${styles.subtitle}`}
-            >
+            <span className={`text_type_fibonacci text_color_secondary ${styles.subtitle}`}>
                им. Фибоначчи
             </span>
          </div>
@@ -33,9 +31,7 @@ export const SolutionLayout: FC<SolutionLayoutProps> = ({ extraClass = "", title
             </h3>
             {children}
          </div>
-         <p
-            className={`text text_type_column text_color_input mt-14 ${styles.copyright}`}
-         >
+         <p className={`text_type_column text_color_input mt-14 ${styles.copyright}`}>
             © Сделано в Практикуме.
          </p>
       </main>

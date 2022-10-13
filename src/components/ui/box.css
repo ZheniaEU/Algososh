@@ -361,6 +361,10 @@
 
 /* margin */
 
+.m-0 {
+   margin: 0;
+}
+
 .m-1 {
    margin: var(--offset-base-size);
 }

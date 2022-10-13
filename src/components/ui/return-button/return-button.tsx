@@ -17,7 +17,7 @@ export const ReturnButton: FC<ButtonProps> = ({ extraClass = "", ...rest }) => {
          {...rest}
       >
          <ReturnIcon />
-         <p className="text text_type_button text_color_link ml-4">К оглавлению</p>
+         <p className="text_type_button text_color_link ml-4 m-0">К оглавлению</p>
       </button>
    )
 }

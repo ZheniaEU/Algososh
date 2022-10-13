@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Link } from "react-router-dom"
 import Marquee from "react-fast-marquee"
 
-import styles from "./main-page.module.css"
+import styles from "./main.module.css"
 
 interface MainPageProps {
    extraClass?: string
@@ -16,9 +16,7 @@ export const MainPage: FC<MainPageProps> = ({ extraClass = "" }) => {
             <h1 className={`text text_type_h1 text_color_h1 ${styles.title}`}>
                МБОУ АЛГОСОШ
             </h1>
-            <p
-               className={`text text_type_fibonacci text_color_secondary ${styles.fibonacci_title}`}
-            >
+            <p className={`text text_type_fibonacci text_color_secondary ${styles.fibonacci_title}`}>
                им. Фибоначчи
             </p>
          </div>
@@ -43,18 +41,14 @@ export const MainPage: FC<MainPageProps> = ({ extraClass = "" }) => {
             </Link>
          </div>
          <Marquee className={styles.ticker} gradient={false} speed={200}>
-            <p
-               className={`text text_type_ticker text_color_secondary ${styles.ticker_text}`}
-            >
+            <p className={`text text_type_ticker text_color_secondary ${styles.ticker_text}`}>
                Вдохновлено школами, в которых не учили алгоритмам
             </p>
             <div className={styles.dot_box}>
                <p className={styles.dot} />
             </div>
          </Marquee>
-         <p
-            className={`text text_type_column text_color_input mt-14 ${styles.copyright}`}
-         >
+         <p className={`text_type_column text_color_input ${styles.copyright}`}>
             © Сделано в Практикуме.
          </p>
       </main>
