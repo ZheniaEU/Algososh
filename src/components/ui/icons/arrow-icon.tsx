@@ -1,10 +1,11 @@
-import React from "react";
+import { FC } from "react"
 
 interface Props {
-   fill?: string;
+   fill?: string
 }
 
-export const ArrowIcon: React.FC<Props> = ({ fill = "#0032FF" }) => {
+export const ArrowIcon: FC<Props> = ({ fill = "#0032FF" }) => {
+
    return (
       <svg
          width="24"
@@ -20,5 +21,5 @@ export const ArrowIcon: React.FC<Props> = ({ fill = "#0032FF" }) => {
             fill={fill}
          />
       </svg>
-   );
-};
+   )
+}

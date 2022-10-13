@@ -1,6 +1,5 @@
-import React from "react";
-
 export const ReturnIcon = () => {
+
    return (
       <svg
          width="24"
@@ -16,5 +15,5 @@ export const ReturnIcon = () => {
             fill="#0032FF"
          />
       </svg>
-   );
-};
+   )
+}

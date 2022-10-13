@@ -1,19 +1,17 @@
-import React, { ReactNode } from "react";
-import { ReturnButton } from "../return-button/return-button";
-import { Link } from "react-router-dom";
-import styles from "./solution-layout.module.css";
+import { FC, ReactNode } from "react"
+import { ReturnButton } from "../return-button/return-button"
+import { Link } from "react-router-dom"
+
+import styles from "./solution-layout.module.css"
 
 interface SolutionLayoutProps {
-   title: string;
-   extraClass?: string;
+   title: string
+   extraClass?: string
    children: ReactNode
 }
 
-export const SolutionLayout: React.FC<SolutionLayoutProps> = ({
-   extraClass = "",
-   title,
-   children,
-}) => {
+export const SolutionLayout: FC<SolutionLayoutProps> = ({ extraClass = "", title, children, }) => {
+
    return (
       <main className={`${styles.content} ${extraClass}`}>
          <div className={styles.titleBox}>
@@ -41,5 +39,5 @@ export const SolutionLayout: React.FC<SolutionLayoutProps> = ({
             © Сделано в Практикуме.
          </p>
       </main>
-   );
-};
+   )
+}
