@@ -11,35 +11,35 @@ import { StackPage } from "../stack-page/stack-page";
 import "./app.css";
 
 function App() {
-  return (
-    <div className="app">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact>
-            <MainPage />
-          </Route>
-          <Route path="/recursion">
-            <StringComponent />
-          </Route>
-          <Route path="/fibonacci">
-            <FibonacciPage />
-          </Route>
-          <Route path="/sorting">
-            <SortingPage />
-          </Route>
-          <Route path="/stack">
-            <StackPage />
-          </Route>
-          <Route path="/queue">
-            <QueuePage />
-          </Route>
-          <Route path="/list">
-            <ListPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
+   return (
+      <div className="app">
+         <BrowserRouter>
+            <Switch>
+               <Route path="/" exact>
+                  <MainPage />
+               </Route>
+               <Route path="/recursion">
+                  <StringComponent />
+               </Route>
+               <Route path="/fibonacci">
+                  <FibonacciPage />
+               </Route>
+               <Route path="/sorting">
+                  <SortingPage />
+               </Route>
+               <Route path="/stack">
+                  <StackPage />
+               </Route>
+               <Route path="/queue">
+                  <QueuePage />
+               </Route>
+               <Route path="/list">
+                  <ListPage />
+               </Route>
+            </Switch>
+         </BrowserRouter>
+      </div>
+   );
 }
 
 export default App;
