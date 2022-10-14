@@ -27,8 +27,8 @@ export const Button: FC<ButtonProps> = ({ text, extraClass = "", type = "button"
          className={className}
          disabled={isLoader || disabled}
          {...rest}
-      >
          type={type}
+      >
          {isLoader ? (
             <img className={styles.loader_icon} src={loaderIcon} alt="Загрузка." />
          ) : (
