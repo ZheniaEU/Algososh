@@ -1,0 +1,30 @@
+.form {
+   display: flex;
+   justify-content: center;
+   outline: 2px solid dodgerblue;
+   height: 88px;
+}
+
+.div {
+   display: flex;
+   width: 1200px;
+   height: 600px;
+   outline: 2px solid red;
+}
+
+.input {
+   width: 550px;
+   height: 80px;
+   display: block;
+}
+
+.test {
+   outline: 2px solid red;
+}
+
+.wrapper {
+   display: flex;
+   justify-content: center;
+   gap: 12px;
+   margin: 0 auto;
+}

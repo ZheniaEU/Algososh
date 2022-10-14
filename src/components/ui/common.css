@@ -52,6 +52,14 @@ body {
    padding: 0;
 }
 
+.width-long {
+   width: 377px;
+}
+
+.width-short{
+   width: 204px;
+}
+
 .text_color_primary {
    color: var(--text-color-primary);
 }
@@ -98,6 +106,7 @@ body {
    font-weight: 600;
    font-size: 32px;
    line-height: 39px;
+   margin-bottom: 48px;
 }
 
 .text_type_ticker {

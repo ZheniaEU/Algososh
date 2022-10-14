@@ -9,18 +9,17 @@ export const StringComponent: FC = () => {
 
    return (
       <SolutionLayout title="Строка">
-         <form action="" className={styles.a}>
-            <Input placeholder="Введите текст" type="text" maxLength={11}>
-            </Input>
-            <Button type="submit" text="Развернуть" />
+         <form action="" className={styles.form}>
+            <div className={styles.wrapper}>
+               <Input placeholder="Введите текст" type="text" maxLength={11} isLimitText={true}>
+               </Input>
+               <Button type="submit" text="Развернуть" />
+            </div>
+
          </form>
       </SolutionLayout>
    )
 }
 
-//в ui есть кнопки
-// круги
-// какие то колонки
-//инпуты
-//радиобатоны
-//свапать элементы строки методом 2х указателей?
+// и нужно размапить круг
+// на кнопке есть лоадер
