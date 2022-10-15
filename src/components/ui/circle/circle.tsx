@@ -3,7 +3,7 @@ import { ElementStates } from "../../../types/element-states"
 
 import styles from "./circle.module.css"
 
-interface CircleProps {
+export type CircleProps = {
    state?: ElementStates
    letter?: string
    head?: string | React.ReactElement | null
