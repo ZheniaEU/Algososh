@@ -6,6 +6,7 @@
          "DOM.Iterable",
          "ESNext"
       ],
+      "baseUrl": "./src",
       "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
