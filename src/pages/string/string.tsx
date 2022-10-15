@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { FC, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
@@ -28,27 +29,38 @@ export const StringComponent: FC = () => {
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
    // я думаю тут нужно хранить состояние цвета или из массива сделать объект и присвоить ключ с цветом?
+   //обрабатываемый массив
+   // сделал на массиве но эстетически мне не нравиться
+   let [test, setTest] = useState<Array<Array<string>>>([])
+
+
 
    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setInput("")
    }
 
-   let [color, setColor] = useState(ElementStates.Default)
-//   let a = ElementStates.Default
-   //  ElementStates.Changing
 
-   const bimbim = () => {
+
+   const clickHandler = () => {
 
       SetLoading(true)
-      setArr(input.split(""))
 
-      setColor(ElementStates.Modified)
-//      console.log(a)
+      const addColor = (arr: Array<string>) => {
+         return arr.map(e => [e, ElementStates.Changing])
+      }
+
+
+      //  setArr(input.split(""))
+
+      setTest(addColor(input.split("")))
+
       setTimeout(() => {
-         setArr(input.split("").reverse())
+         //       setArr(input.split("").reverse())
+         console.log(test.length)
+
          SetLoading(false)
-         setColor(ElementStates.Changing)
+         setInput("")
       }, 3000)
 
 
@@ -74,15 +86,14 @@ export const StringComponent: FC = () => {
          <form className={styles.form} onSubmit={submitHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Развернуть" onClick={bimbim} disabled={!input} isLoader={loading} />
+               <Button type="submit" text="Развернуть" onClick={clickHandler} disabled={!input} isLoader={loading} />
             </div>
          </form>
          <p>{input}</p>
          <ul className={styles.ul}>
-            {arr &&
-               arr.map((e, i) => {
-                       console.log(e)
-                  return <li className={styles.li} key={i} > <Circle letter={e} state={color} /> </li>
+            {test &&
+               test.map((e, i) => {
+                  return <li className={styles.li} key={i} > <Circle letter={e[0]} state={e[1]} /> </li>
                })}
          </ul>
       </SolutionLayout >
