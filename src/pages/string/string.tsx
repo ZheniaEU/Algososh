@@ -8,7 +8,7 @@ import { ElementStates } from "types/element-states"
 
 import styles from "./string.module.css"
 
-export const sleepWait = (ms: number = 1300) => {
+export const sleepWait = (ms: number) => {
    return new Promise((resolve) => {
       setTimeout(() => {
          resolve(null)
@@ -24,28 +24,12 @@ export const StringComponent: FC = () => {
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
 
-   let [state, setState] = useState<any>()
-
-
    //добавил поле цвет
    const addColor = (arr: Array<string>) => {
       return arr.map(e => [e, ElementStates.Default])
    }
 
-   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // clickHandler()
-      SetLoading(true)
-      setArr(addColor(input.split("")))
-
-      solution(arr)
-   }
-
-
-
-
-   const solution = (arr: any) => {
-      console.log("здеся1", arr) // почему у меня массив отстаёт на итерацию?
+   const solution = async (arr: any) => {
       let currentIndex = 0
       let max = Math.floor(arr.length / 2)
       while (currentIndex < max) {
@@ -53,7 +37,6 @@ export const StringComponent: FC = () => {
          let a = currentIndex
          let b = arr.length - 1 - currentIndex
          let a_next = currentIndex + 1
-         console.log(a_next)
          let b_next = arr.length - 1 - currentIndex
 
          console.log("здеся2")
@@ -65,7 +48,7 @@ export const StringComponent: FC = () => {
          arr[a_next] = [arr[b_next][0], [ElementStates.Changing]]
          arr[b_next] = [tmp[0], [ElementStates.Changing]]
          setArr(arr)
-         sleepWait(1300)
+         await sleepWait(1300)
          currentIndex += 1
       }
 
@@ -78,21 +61,27 @@ export const StringComponent: FC = () => {
 
    }
 
+   const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
 
-   const clickHandler = () => {
-
+      e.preventDefault()
       SetLoading(true)
-      setArr(addColor(input.split("")))
 
-      solution(arr)
+      // setArr(addColor(input.split("")))
+      solution(addColor(input.split("")))
+
    }
+
+   // useEffect(() => {
+   //    solution(arr,)
+   //    console.log(arr)
+   // }, [arr])
 
    return (
       <SolutionLayout title="Строка">
-         <form className={styles.form} onSubmit={submitHandler}>
+         <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Развернуть" onClick={clickHandler} disabled={!input} isLoader={loading} />
+               <Button type="submit" text="Развернуть" disabled={!input} isLoader={loading} />
             </div>
          </form>
          <p>{input}</p>
