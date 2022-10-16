@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
 import { Input } from "components/ui/input/input"
@@ -40,44 +40,63 @@ export const StringComponent: FC = () => {
       setInput("")
    }
 
+   const addColor = (arr: Array<string>) => {
+      return arr.map(e => [e, ElementStates.Changing])
+   }
 
+   // let chars = addColor(input.split(""))
+   // console.log(chars)
+   useEffect(() => {
+
+      setTest(addColor(input.split("")))
+      //  console.log(test)
+   }, [input])
 
    const clickHandler = () => {
 
       SetLoading(true)
 
-      const addColor = (arr: Array<string>) => {
-         return arr.map(e => [e, ElementStates.Changing])
+
+      solution(test)
+   }
+
+
+
+   const solution = (test: any) => {
+
+      let a = 0
+      while (test == test.reverse() || a >= 6) {
+         console.log()
       }
 
 
-      //  setArr(input.split(""))
-
-      setTest(addColor(input.split("")))
-
+      for (let i = 0; i < test.length / 2; i++) {
+         setInterval(() => {
+            console.log(i)
+         }, 1000)
+      }
       setTimeout(() => {
-         //       setArr(input.split("").reverse())
-         console.log(test.length)
 
          SetLoading(false)
-         setInput("")
-      }, 3000)
-
-
-      /* логика
-
-      делаем жмяу на кнопку
-      запускается лоадер на кнопке, заблокировать кнопку
-      получаем массив из строки и записываем в состояние
-      отоброжаю массив на экране и покрасить все элементы в один цвет
-      на сколько я понимаю дальше через цикл я должен менять первый и последний элемент местами двигаесь к середине
-      меняемые в текущей момент я должен выделить отдельным цветом и те которые поменял тоже отдельным
-      после завершения очестить инпут и разблокировать кнопку и убрать лоадер
-
-
-      импортировать делей
-      */
+         //     setInput("")
+      }, 1000)
    }
+
+
+   /* логика
+
+   делаем жмяу на кнопку
+   запускается лоадер на кнопке, заблокировать кнопку
+   получаем массив из строки и записываем в состояние
+   отоброжаю массив на экране и покрасить все элементы в один цвет
+   на сколько я понимаю дальше через цикл я должен менять первый и последний элемент местами двигаесь к середине
+   меняемые в текущей момент я должен выделить отдельным цветом и те которые поменял тоже отдельным
+   после завершения очестить инпут и разблокировать кнопку и убрать лоадер
+
+
+   импортировать делей
+   */
+
 
 
 
