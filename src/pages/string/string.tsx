@@ -4,101 +4,88 @@ import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
 import { Input } from "components/ui/input/input"
 import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
-
-import styles from "./string.module.css"
 import { ElementStates } from "types/element-states"
 
-export const DELAY_IN_MS = 1000
-export const SHORT_DELAY_IN_MS = 500
+import styles from "./string.module.css"
 
-// свап на ксоре
-export const swap = (arr: Array<number>, i: number, z: number): void => {
-   if (z === i)
-      return
-   arr[i] ^= arr[z]
-   arr[z] ^= arr[i]
-   arr[i] ^= arr[z]
+export const sleepWait = (ms: number = 1300) => {
+   return new Promise((resolve) => {
+      setTimeout(() => {
+         resolve(null)
+      }, ms);
+   })
 }
-
 export const StringComponent: FC = () => {
 
    //получаемый импут
    let [input, setInput] = useState<string>("")
    //обрабатываемый массив
-   let [arr, setArr] = useState<Array<string>>([])
+   let [arr, setArr] = useState<Array<Array<string>>>([])
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
-   // я думаю тут нужно хранить состояние цвета или из массива сделать объект и присвоить ключ с цветом?
-   //обрабатываемый массив
-   // сделал на массиве но эстетически мне не нравиться
-   let [test, setTest] = useState<Array<Array<string>>>([])
+
+   let [state, setState] = useState<any>()
 
 
+   //добавил поле цвет
+   const addColor = (arr: Array<string>) => {
+      return arr.map(e => [e, ElementStates.Default])
+   }
 
    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      setInput("")
+      // clickHandler()
+      SetLoading(true)
+      setArr(addColor(input.split("")))
+
+      solution(arr)
    }
 
-   const addColor = (arr: Array<string>) => {
-      return arr.map(e => [e, ElementStates.Changing])
+
+
+
+   const solution = (arr: any) => {
+      console.log("здеся1", arr) // почему у меня массив отстаёт на итерацию?
+      let currentIndex = 0
+      let max = Math.floor(arr.length / 2)
+      while (currentIndex < max) {
+
+         let a = currentIndex
+         let b = arr.length - 1 - currentIndex
+         let a_next = currentIndex + 1
+         console.log(a_next)
+         let b_next = arr.length - 1 - currentIndex
+
+         console.log("здеся2")
+         let tmp = arr[a]
+         arr[a] = [arr[b][0], [ElementStates.Changing]]
+         arr[b] = [tmp[0], [ElementStates.Changing]]
+
+         tmp = arr[a_next]
+         arr[a_next] = [arr[b_next][0], [ElementStates.Changing]]
+         arr[b_next] = [tmp[0], [ElementStates.Changing]]
+         setArr(arr)
+         sleepWait(1300)
+         currentIndex += 1
+      }
+
+      setTimeout(() => {
+
+         SetLoading(false)
+
+         setInput("")
+      }, 2500)
+
    }
 
-   // let chars = addColor(input.split(""))
-   // console.log(chars)
-   useEffect(() => {
-
-      setTest(addColor(input.split("")))
-      //  console.log(test)
-   }, [input])
 
    const clickHandler = () => {
 
       SetLoading(true)
+      setArr(addColor(input.split("")))
 
-
-      solution(test)
+      solution(arr)
    }
-
-
-
-   const solution = (test: any) => {
-
-      let a = 0
-      while (test == test.reverse() || a >= 6) {
-         console.log()
-      }
-
-
-      for (let i = 0; i < test.length / 2; i++) {
-         setInterval(() => {
-            console.log(i)
-         }, 1000)
-      }
-      setTimeout(() => {
-
-         SetLoading(false)
-         //     setInput("")
-      }, 1000)
-   }
-
-
-   /* логика
-
-   делаем жмяу на кнопку
-   запускается лоадер на кнопке, заблокировать кнопку
-   получаем массив из строки и записываем в состояние
-   отоброжаю массив на экране и покрасить все элементы в один цвет
-   на сколько я понимаю дальше через цикл я должен менять первый и последний элемент местами двигаесь к середине
-   меняемые в текущей момент я должен выделить отдельным цветом и те которые поменял тоже отдельным
-   после завершения очестить инпут и разблокировать кнопку и убрать лоадер
-
-
-   импортировать делей
-   */
-
-
-
 
    return (
       <SolutionLayout title="Строка">
@@ -110,13 +97,11 @@ export const StringComponent: FC = () => {
          </form>
          <p>{input}</p>
          <ul className={styles.ul}>
-            {test &&
-               test.map((e, i) => {
+            {arr &&
+               arr.map((e, i) => {
                   return <li className={styles.li} key={i} > <Circle letter={e[0]} state={e[1]} /> </li>
                })}
          </ul>
       </SolutionLayout >
    )
 }
-
-// на кнопке есть лоадер
