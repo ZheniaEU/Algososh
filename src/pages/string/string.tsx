@@ -1,20 +1,14 @@
-/* eslint-disable */
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
+import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
 import { Input } from "components/ui/input/input"
-import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
+import { SHORT_DELAY_IN_MS } from "constants/delays"
+
 import { ElementStates } from "types/element-states"
 
 import styles from "./string.module.css"
 
-export const sleepWait = (ms: number) => {
-   return new Promise((resolve) => {
-      setTimeout(() => {
-         resolve(null)
-      }, ms);
-   })
-}
 export const StringComponent: FC = () => {
 
    //получаемый импут
@@ -24,57 +18,60 @@ export const StringComponent: FC = () => {
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
 
-   //добавил поле цвет
    const addColor = (arr: Array<string>) => {
       return arr.map(e => [e, ElementStates.Default])
    }
 
-   const solution = async (arr: any) => {
-      let currentIndex = 0
-      let max = Math.floor(arr.length / 2)
-      while (currentIndex < max) {
+   const reverseInput = async (arr: Array<Array<string>>) => {
 
-         let a = currentIndex
-         let b = arr.length - 1 - currentIndex
-         let a_next = currentIndex + 1
-         let b_next = arr.length - 1 - currentIndex
+      let start = 0
+      let end = arr.length - 1 - start
+      const length = arr.length / 2
+      const max = arr.length % 2 === 0 ? length : length + 0.5
 
-         console.log("здеся2")
-         let tmp = arr[a]
-         arr[a] = [arr[b][0], [ElementStates.Changing]]
-         arr[b] = [tmp[0], [ElementStates.Changing]]
-
-         tmp = arr[a_next]
-         arr[a_next] = [arr[b_next][0], [ElementStates.Changing]]
-         arr[b_next] = [tmp[0], [ElementStates.Changing]]
-         setArr(arr)
-         await sleepWait(1300)
-         currentIndex += 1
+      while (start < max + 1) {
+         //красим текущий элемент
+         if (start < max) {
+            let temp = arr[start]
+            arr[start] = [arr[end][0], ElementStates.Changing]
+            arr[end] = [temp[0], ElementStates.Changing]
+         }
+         //покраска предыдущего элемента
+         if (start >= 1) {
+            arr[start - 1] = [arr[start - 1][0], ElementStates.Modified]
+            arr[end + 1] = [arr[end + 1][0], ElementStates.Modified]
+         }
+         //покраска элемента в последней итерации
+         if (start === max) {
+            arr[start] = [arr[start][0], ElementStates.Modified]
+            arr[end] = [arr[end][0], ElementStates.Modified]
+         }
+         //отображение текущего состояния
+         setArr([...arr])
+         //задержа, если это последний свап убераю задержку
+         start < max ? await waitSleep(SHORT_DELAY_IN_MS) : await waitSleep(0)
+         start++
+         end--
       }
+      SetLoading(false)
+      setInput("")
+   }
 
-      setTimeout(() => {
-
-         SetLoading(false)
-
-         setInput("")
-      }, 2500)
-
+   const waitSleep = (ms: number) => {
+      return new Promise((resolve) => {
+         setTimeout(() => {
+            resolve(null)
+         }, ms)
+      })
    }
 
    const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
-
       e.preventDefault()
       SetLoading(true)
-
-      // setArr(addColor(input.split("")))
-      solution(addColor(input.split("")))
-
+      setArr(addColor(input.split("")))
+      reverseInput(addColor(input.split("")))
+      
    }
-
-   // useEffect(() => {
-   //    solution(arr,)
-   //    console.log(arr)
-   // }, [arr])
 
    return (
       <SolutionLayout title="Строка">
@@ -84,11 +81,10 @@ export const StringComponent: FC = () => {
                <Button type="submit" text="Развернуть" disabled={!input} isLoader={loading} />
             </div>
          </form>
-         <p>{input}</p>
          <ul className={styles.ul}>
             {arr &&
                arr.map((e, i) => {
-                  return <li className={styles.li} key={i} > <Circle letter={e[0]} state={e[1]} /> </li>
+                  return <li className={styles.li} key={i} > <Circle letter={e[0]} state={e[1]} /></li>
                })}
          </ul>
       </SolutionLayout >
