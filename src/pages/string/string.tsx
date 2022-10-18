@@ -82,9 +82,9 @@ export const StringComponent: FC = () => {
          </form>
          <ul className={styles.ul}>
             {arr &&
-               arr.map((e, i) => {
-                  return <li className={styles.li} key={i} > <Circle letter={e[0]} state={e[1]} /></li>
-               })}
+               arr.map((e, i) =>
+                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} /></li>
+               )}
          </ul>
       </SolutionLayout >
    )

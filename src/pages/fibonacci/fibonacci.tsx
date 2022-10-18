@@ -24,7 +24,6 @@ export const FibonacciPage: FC = () => {
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
 
-
    const solution = async (n: string) => {
 
       let number = parseInt(n)
@@ -64,9 +63,9 @@ export const FibonacciPage: FC = () => {
          </form>
          <ul className={styles.ul}>
             {arr &&
-               arr.map((e, i) => {
-                  return <li className={styles.li} key={i} > <Circle letter={e} index={i + 1} /></li>
-               })}
+               arr.map((e, i) =>
+                  <li className={styles.li} key={i} ><Circle letter={e} index={i + 1} /></li>
+               )}
          </ul>
       </SolutionLayout>
    )
