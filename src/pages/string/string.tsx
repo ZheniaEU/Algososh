@@ -53,8 +53,6 @@ export const StringComponent: FC = () => {
          start++
          end--
       }
-      SetLoading(false)
-      setInput("")
    }
 
    const waitSleep = (ms: number) => {
@@ -65,12 +63,13 @@ export const StringComponent: FC = () => {
       })
    }
 
-   const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
+   const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       SetLoading(true)
       setArr(addColor(input.split("")))
-      reverseInput(addColor(input.split("")))
-      
+      await reverseInput(addColor(input.split("")))
+      SetLoading(false)
+      setInput("")
    }
 
    return (
