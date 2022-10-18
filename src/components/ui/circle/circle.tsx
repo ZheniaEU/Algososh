@@ -5,7 +5,7 @@ import styles from "./circle.module.css"
 
 export type CircleProps = {
    state?: ElementStates | string
-   letter?: string
+   letter?: string | number
    head?: string | React.ReactElement | null
    index?: number
    tail?: string | React.ReactElement | null

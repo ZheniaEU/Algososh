@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { FC, useState } from "react"
 import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
 import { Button } from "components/ui/button/button"
@@ -6,32 +5,51 @@ import { Circle } from "components/ui/circle/circle"
 import { Input } from "components/ui/input/input"
 import { SHORT_DELAY_IN_MS } from "constants/delays"
 
-import { ElementStates } from "types/element-states"
-
 import styles from "./string.module.css"
 
-//как навесить регулярку на кнопку чтоб дисеблить её?
-export const validButton = new RegExp(/^(([1-9])|(1\d))$/)
+const waitSleep = (ms: number) => {
+   return new Promise((resolve) => {
+      setTimeout(() => {
+         resolve(null)
+      }, ms)
+   })
+}
 
 export const FibonacciPage: FC = () => {
 
    //получаемый импут
-   let [input, setInput] = useState<string>("")
+   let [input, setInput] = useState<string>()
    //обрабатываемый массив
-   let [arr, setArr] = useState<Array<string>>([])
+   let [arr, setArr] = useState<Array<number>>([])
    // флаг загрузки
    let [loading, SetLoading] = useState<boolean>(false)
 
 
-   const solution = () => {
+   const solution = async (n: string) => {
 
+      let number = parseInt(n)
+      if (number === 1) {
+         setArr([0])
+      }
+      if (number === 2) {
+         setArr([0, 1])
+      }
+
+      let arr = [0, 1]
+      let i = 2
+      while (i < number) {
+         await waitSleep(SHORT_DELAY_IN_MS)
+         let element = arr[i - 2] + arr[i - 1]
+         arr.push(element)
+         i++;
+         setArr([...arr])
+      }
    }
 
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       SetLoading(true)
-      setArr(input.split(""))
-      await solution()
+      await solution(input ?? "можно было через if, но я не хочу, ts не понимает что здесь всегда что то есть")
       SetLoading(false)
       setInput("")
    }
@@ -40,14 +58,14 @@ export const FibonacciPage: FC = () => {
       <SolutionLayout title="Последовательность Фибоначчи">
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
-               <Input placeholder="Введите число" type="number" isLimitText={true} max={19} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Развернуть" disabled={!input || parseInt(input) > 19 || parseInt(input) < 1} isLoader={loading} />
+               <Input placeholder="Введите число" type="number" isLimitText={true} max={19} onChange={e => setInput(e.currentTarget.value)} />
+               <Button type="submit" text="Рассчитать" disabled={!input || parseInt(input) > 19 || parseInt(input) < 1} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>
             {arr &&
                arr.map((e, i) => {
-                  return <li className={styles.li} key={i} > <Circle letter={e} /></li>
+                  return <li className={styles.li} key={i} > <Circle letter={e} index={i + 1} /></li>
                })}
          </ul>
       </SolutionLayout>
