@@ -3,10 +3,10 @@ import { nanoid } from "nanoid"
 
 import styles from "./radio-input.module.css"
 
-interface RadioProps extends React.HTMLProps<HTMLInputElement> {
+type RadioProps = {
    label: string
    extraClass?: string
-}
+} & React.HTMLProps<HTMLInputElement>
 
 export const RadioInput: FC<RadioProps> = ({ label = "Введите текст", extraClass = "", ...rest }) => {
 
