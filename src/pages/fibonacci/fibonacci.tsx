@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
@@ -18,15 +18,28 @@ const waitSleep = (ms: number) => {
 export const FibonacciPage: FC = () => {
 
    //получаемый импут
-   let [input, setInput] = useState<string>()
+   const [input, setInput] = useState<string>()
    //обрабатываемый массив
-   let [arr, setArr] = useState<Array<number>>([])
+   const [arr, setArr] = useState<Array<number>>([])
    // флаг загрузки
-   let [loading, SetLoading] = useState<boolean>(false)
+   const [loading, setLoading] = useState<boolean>(false)
 
-   const solution = async (n: string) => {
+   const [test, setTest] = useState<any>([])
 
-      let number = parseInt(n)
+   useEffect(() => {
+      if (test.length !== arr.length)
+         setTimeout(() => {
+            setTest([...test, arr[test.length]])
+         }, 300)
+      else {
+         setInput("")
+      }
+
+   }, [test, arr])
+
+   const solution = (n: string) => {
+
+      const number = parseInt(n)
       if (number === 1) {
          setArr([0])
       }
@@ -37,7 +50,7 @@ export const FibonacciPage: FC = () => {
       let arr = [0, 1]
       let i = 2
       while (i < number) {
-         await waitSleep(SHORT_DELAY_IN_MS)
+         //  await waitSleep(SHORT_DELAY_IN_MS)
          let element = arr[i - 2] + arr[i - 1]
          arr.push(element)
          i++;
@@ -45,12 +58,15 @@ export const FibonacciPage: FC = () => {
       }
    }
 
-   const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+   const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      SetLoading(true)
-      await solution(input ?? "можно было через if, но я не хочу, ts не понимает что здесь всегда что то есть")
-      SetLoading(false)
+      setLoading(true)
+      solution(input ?? "можно было через if, но я не хочу, ts не понимает что здесь всегда что то есть")
+      console.log("тута")
       setInput("")
+      //    ff()
+      setLoading(false)
+      setTest([])
    }
 
    return (
@@ -62,8 +78,8 @@ export const FibonacciPage: FC = () => {
             </div>
          </form>
          <ul className={styles.ul}>
-            {arr &&
-               arr.map((e, i) =>
+            {test &&
+               test.map((e: any, i: any) =>
                   <li className={styles.li} key={i} ><Circle letter={e} index={i + 1} /></li>
                )}
          </ul>

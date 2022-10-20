@@ -1,4 +1,4 @@
-.form {
+.container {
    display: flex;
    justify-content: center;
 }
@@ -31,7 +31,7 @@
    display: flex;
    justify-content: center;
    align-items: flex-end;
-   height: 320px;
+   height: 348px;
    gap: 10px;
    margin: 48px 0 0;
    padding: 0;

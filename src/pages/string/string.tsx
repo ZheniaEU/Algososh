@@ -12,11 +12,11 @@ import styles from "./string.module.css"
 export const StringComponent: FC = () => {
 
    //получаемый импут
-   let [input, setInput] = useState<string>("")
+   const [input, setInput] = useState<string>("")
    //обрабатываемый массив
-   let [arr, setArr] = useState<Array<Array<string>>>([])
+   const [arr, setArr] = useState<Array<Array<string>>>([])
    // флаг загрузки
-   let [loading, SetLoading] = useState<boolean>(false)
+   const [loading, setLoading] = useState<boolean>(false)
 
    const addColor = (arr: Array<string>) => {
       return arr.map(e => [e, ElementStates.Default])
@@ -65,10 +65,10 @@ export const StringComponent: FC = () => {
 
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      SetLoading(true)
+      setLoading(true)
       setArr(addColor(input.split("")))
       await reverseInput(addColor(input.split("")))
-      SetLoading(false)
+      setLoading(false)
       setInput("")
    }
 
