@@ -16,7 +16,7 @@ export const SortingPage: FC = () => {
    const [loading, setLoading] = useState<boolean>(false)
    const [sort, setSort] = useState<"selection" | "bubble">("selection")
 
-   const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<number | any> = []) => {
+   const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<[number, string]> = []) => {
 
       while (i < length) {
          arr.push([randomInteger(min, max), ElementStates.Default])
@@ -40,21 +40,51 @@ export const SortingPage: FC = () => {
       setArr((getArray(0, 100, randomInteger(3, 17))))
    }, [])
 
-   const selectedSort = (rule: string) => {
+   const waitSleep = (ms: number) => {
+      return new Promise((resolve) => {
+         setTimeout(() => {
+            resolve(null)
+         }, ms)
+      })
+   }
 
-      const array = arr
-      return console.log(array, rule)
+   const swap = async (arr: Array<[number, string]>, i: number, z: number) => {
+
+      arr[i][0] ^= arr[z][0]
+      arr[z][0] ^= arr[i][0]
+      arr[i][0] ^= arr[z][0]
+      await waitSleep(300)
+   }
+
+   const selectedSort = async (arr: Array<[number, string]>, rule: string, min?: number) => {
+
+      for (let i = 0; i <= arr.length - 1; i++) {
+         min = i
+
+         for (let j = i; j <= arr.length - 1; j++) {
+            rule === "ascending" ? arr[j][0] < arr[min][0] ? min = j : min = min : arr[j][0] > arr[min][0] ? min = j : min = min
+         }
+
+         rule === "ascending" ? arr[i][0] > arr[min][0] ? await swap(arr, i, min) : null : arr[i][0] < arr[min][0] ? await swap(arr, i, min) : null
+         setArr([...arr])
+      }
+      return arr
    }
 
    const bubbleSort = (rule: string) => {
-
       const array = arr
       return console.log(array, rule)
+
    }
 
-   const sortingArray = (sort: string, rule: string) => {
+   const sortingArray = async (sort: string, rule: string) => {
+
+      const array = arr
+      const selected = selectedSort(array, rule)
+      const bubble = bubbleSort(rule)
+
       setLoading(true)
-      sort === "selection" ? selectedSort(rule) : bubbleSort(rule)
+      sort === "selection" ? setArr(await selected) : bubble
       setLoading(false)
    }
 
@@ -79,3 +109,37 @@ export const SortingPage: FC = () => {
       </SolutionLayout>
    )
 }
+
+
+
+
+
+
+// const selectedSort = async (arr: any, rule: string) => {
+
+//    // let test = [...arr]
+
+//    let min
+
+//    for (let i = 0; i <= arr.length - 1; i++) {
+//       min = i
+
+//       for (let j = i; j <= arr.length - 1; j++) {
+
+//          if (arr[j][0] < arr[min][0]) {
+//             min = j
+//          }
+//       }
+
+
+//       if (arr[i][0] > arr[min][0]) {
+//          await waitSleep(300)
+//          arr[i][0] ^= arr[min][0]
+//          arr[min][0] ^= arr[i][0]
+//          arr[i][0] ^= arr[min][0]
+//          setArr([...arr])
+//          arr = [...arr]
+//       }
+//    }
+//    return arr
+// }
