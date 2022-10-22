@@ -18,7 +18,7 @@ export const SortingPage: FC = () => {
 
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
-   const [sort, setSort] = useState<"selection" | "bubble">("selection")
+   const [sort, setSort] = useState<"selection" | "bubble">("bubble")
 
    const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<Tuple> = []) => {
 
@@ -35,13 +35,12 @@ export const SortingPage: FC = () => {
       return Math.floor(rand)
    }
 
-   const createArray = () => {
-      const length = randomInteger(3, 17)
-      setArr(getArray(0, 100, length))
+   const createArrayWithButton = () => {
+      setArr(getArray(0, 100, randomInteger(3, 17)))
    }
 
    useEffect(() => {
-      setArr((getArray(0, 100, randomInteger(3, 17))))
+      setArr((getArray(0, 100, randomInteger(7, 7))))
    }, [])
 
    const waitSleep = (ms: number) => {
@@ -98,11 +97,29 @@ export const SortingPage: FC = () => {
 
       for (let i = 0; i < arr.length; i++) {
          for (let j = 0; j < arr.length - i - 1; j++) {
+            // алгоритм покраски текущих элементов
+            if (arr[j]) {
+               arr[j][1] = ElementStates.Changing
+               arr[j + 1][1] = ElementStates.Changing
+            }
+            //перекраска предыдущих
+            if (arr[j - 1]) {
+               arr[j - 1][1] = ElementStates.Default
+          //     arr[j -2][1] = ElementStates.Default
+            }
+            // if (arr[j] === arr[arr.length - i - 1]) {
+            //    arr[j][1] = ElementStates.Default
+            // }
+
+            render([...arr])
+            await waitSleep(1000)
+
             if (isAsc && arr[j][0] > arr[j + 1][0] || !isAsc && arr[j][0] < arr[j + 1][0])
                await swap(arr, j, j + 1)
 
-            render([...arr])
          }
+         arr[arr.length - i - 1][1] = ElementStates.Modified
+         render([...arr])
       }
       return arr
    }
@@ -123,7 +140,7 @@ export const SortingPage: FC = () => {
             </div>
             <Button text="По возрастанию" sorting={Direction.Ascending} extraClass={styles.button_sort} disabled={loading} onClick={() => sortingArray(sort, "ascending")} />
             <Button text="По убыванию" sorting={Direction.Descending} extraClass={styles.button_sort} disabled={loading} onClick={() => sortingArray(sort, "descending")} />
-            <Button text="Новый массив" extraClass={styles.button_create} disabled={loading} onClick={createArray} />
+            <Button text="Новый массив" extraClass={styles.button_create} disabled={loading} onClick={createArrayWithButton} />
          </div>
          <ul className={styles.ul}>
             {arr &&
