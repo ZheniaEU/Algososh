@@ -18,7 +18,7 @@ export const SortingPage: FC = () => {
 
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
-   const [sort, setSort] = useState<"selection" | "bubble">("bubble")
+   const [sort, setSort] = useState<"selection" | "bubble">("selection")
 
    const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<Tuple> = []) => {
 
@@ -40,7 +40,7 @@ export const SortingPage: FC = () => {
    }
 
    useEffect(() => {
-      setArr((getArray(0, 100, randomInteger(7, 7))))
+      setArr((getArray(0, 100, randomInteger(3, 17))))
    }, [])
 
    const waitSleep = (ms: number) => {
@@ -51,9 +51,8 @@ export const SortingPage: FC = () => {
       })
    }
 
-   const swap = async (arr: Array<Tuple>, i: number, z: number) => {
-      if (arr[i][0] === arr[z][0])
-         return
+   const swap = (arr: Array<Tuple>, i: number, z: number) => {
+      if (arr[i][0] === arr[z][0]) return
       arr[i][0] ^= arr[z][0]
       arr[z][0] ^= arr[i][0]
       arr[i][0] ^= arr[z][0]
@@ -78,11 +77,10 @@ export const SortingPage: FC = () => {
             await waitSleep(500)
             if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Default
 
-            if (isAsc && arr[j][0] < arr[min][0] || !isAsc && arr[j][0] > arr[min][0])
-               min = j
+            if (isAsc && arr[j][0] < arr[min][0] || !isAsc && arr[j][0] > arr[min][0]) min = j
 
             if (isAsc && arr[i][0] > arr[min][0] || !isAsc && arr[i][0] < arr[min][0])
-               await swap(arr, i, min)
+               swap(arr, i, min)
          }
          //покраска пройденного элемента
          arr[i][1] = ElementStates.Modified
@@ -102,23 +100,23 @@ export const SortingPage: FC = () => {
                arr[j][1] = ElementStates.Changing
                arr[j + 1][1] = ElementStates.Changing
             }
-            //перекраска предыдущих
+            //перекраска предыдущего
             if (arr[j - 1]) {
                arr[j - 1][1] = ElementStates.Default
-          //     arr[j -2][1] = ElementStates.Default
             }
-            // if (arr[j] === arr[arr.length - i - 1]) {
-            //    arr[j][1] = ElementStates.Default
-            // }
 
             render([...arr])
-            await waitSleep(1000)
+            await waitSleep(500)
 
             if (isAsc && arr[j][0] > arr[j + 1][0] || !isAsc && arr[j][0] < arr[j + 1][0])
-               await swap(arr, j, j + 1)
+               swap(arr, j, j + 1)
 
          }
+         //покраска конечного элемента и предпоследнего когда последний окрашен
          arr[arr.length - i - 1][1] = ElementStates.Modified
+         if (arr[arr.length - i - 2]) {
+            arr[arr.length - i - 2][1] = ElementStates.Default
+         }
          render([...arr])
       }
       return arr

@@ -62,7 +62,7 @@ export const FibonacciPage: FC = () => {
    const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
-      solution(input ?? "можно было через if, но я не хочу, ts не понимает что здесь всегда что то есть")
+      if (input) solution(input)
       setTest([])
    }
 
