@@ -7,6 +7,8 @@ import { SHORT_DELAY_IN_MS } from "constants/delays"
 
 import styles from "./string.module.css"
 
+type Render = (arr: Array<number>) => void
+
 const waitSleep = (ms: number) => {
    return new Promise((resolve) => {
       setTimeout(() => {
@@ -17,53 +19,49 @@ const waitSleep = (ms: number) => {
 
 export const FibonacciPage: FC = () => {
 
-   const [input, setInput] = useState<string>("")
-   //обрабатываемый массив
-   const [arr, setArr] = useState<Array<number>>([])
-   // флаг загрузки
+   const [input, setInput] = useState("")
+   const [inputArray, setInputArray] = useState<Array<number>>([])
    const [loading, setLoading] = useState<boolean>(false)
-
-   const [test, setTest] = useState<Array<number>>([])
+   const [arr, setArr] = useState<Array<number>>([])
 
    useEffect(() => {
-      if (test.length !== arr.length) {
+      if (arr.length !== inputArray.length) {
          // setTimeout(() => {
-         //   setTest([...test, arr[test.length]])
+         //   setArr([...arr, inputArray[arr.length]])
          // },  SHORT_DELAY_IN_MS)
          waitSleep(SHORT_DELAY_IN_MS).then(() => {
-            setTest([...test, arr[test.length]])
+            setArr([...arr, inputArray[arr.length]])
          })
       } else {
          setLoading(false)
          setInput("")
       }
-   }, [test, arr])
+   }, [arr, inputArray])
 
-   const solution = (n: string) => {
+   const calculationFibonacci = (n: string, render: Render) => {
       const number = parseInt(n)
       if (number === 1) {
-         setArr([0])
+         render([0])
       }
       if (number === 2) {
-         setArr([0, 1])
+         render([0, 1])
       }
 
       const arr = [0, 1]
       let i = 2
       while (i < number) {
-         // await waitSleep(SHORT_DELAY_IN_MS)
          let element = arr[i - 2] + arr[i - 1]
          arr.push(element)
          i++
-         setArr([...arr])
+         render([...arr])
       }
    }
 
    const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
-      if (input) solution(input)
-      setTest([])
+      if (input) calculationFibonacci(input, setInputArray)
+      setArr([])
    }
 
    return (
@@ -75,8 +73,8 @@ export const FibonacciPage: FC = () => {
             </div>
          </form>
          <ul className={styles.ul}>
-            {test &&
-               test.map((e, i) =>
+            {arr &&
+               arr.map((e, i) =>
                   <li className={styles.li} key={i} ><Circle letter={e} index={i + 1} /></li>
                )}
          </ul>
