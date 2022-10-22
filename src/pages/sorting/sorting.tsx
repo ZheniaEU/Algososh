@@ -58,8 +58,6 @@ export const SortingPage: FC = () => {
       arr[i][0] ^= arr[z][0]
       arr[z][0] ^= arr[i][0]
       arr[i][0] ^= arr[z][0]
-      await waitSleep(100)
-      console.log(arr)
    }
 
    const selectedSort = async (arr: Array<Tuple>, rule: string, render: Render) => {
@@ -68,14 +66,27 @@ export const SortingPage: FC = () => {
 
       for (let i = 0; i < arr.length; i++) {
          let min = i
+         if (arr[i]) arr[i][1] = ElementStates.Changing
 
-         for (let j = i; j < arr.length; j++)
+         for (let j = i + 1; j < arr.length; j++) {
+            //алгоритм покраски второго элемента
+            if (arr[j]) arr[j][1] = ElementStates.Changing
+            if (arr[j] !== arr[i] && arr[j - 1] !== arr[i]) arr[j - 1][1] = ElementStates.Default
+            render([...arr])
+
+            //покраска последнего элемента
+            if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Changing
+            await waitSleep(500)
+            if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Default
+
             if (isAsc && arr[j][0] < arr[min][0] || !isAsc && arr[j][0] > arr[min][0])
                min = j
 
-         if (isAsc && arr[i][0] > arr[min][0] || !isAsc && arr[i][0] < arr[min][0])
-            await swap(arr, i, min)
-
+            if (isAsc && arr[i][0] > arr[min][0] || !isAsc && arr[i][0] < arr[min][0])
+               await swap(arr, i, min)
+         }
+         //покраска пройденного элемента
+         arr[i][1] = ElementStates.Modified
          render([...arr])
       }
       return arr
@@ -117,60 +128,10 @@ export const SortingPage: FC = () => {
          <ul className={styles.ul}>
             {arr &&
                arr.map((e, i) =>
-                  <li className={styles.li} key={i} ><Column index={e[0]} /></li>
+                  <li className={styles.li} key={i} ><Column index={e[0]} state={e[1]} /></li>
                )}
          </ul>
 
       </SolutionLayout>
    )
 }
-
-
-
-
-
-
-// const selectedSort = async (arr: any, rule: string) => {
-
-//    // let test = [...arr]
-
-//    let min
-
-//    for (let i = 0; i <= arr.length - 1; i++) {
-//       min = i
-
-//       for (let j = i; j <= arr.length - 1; j++) {
-
-//          if (arr[j][0] < arr[min][0]) {
-//             min = j
-//          }
-//       }
-
-
-//       if (arr[i][0] > arr[min][0]) {
-//          await waitSleep(300)
-//          arr[i][0] ^= arr[min][0]
-//          arr[min][0] ^= arr[i][0]
-//          arr[i][0] ^= arr[min][0]
-//          setArr([...arr])
-//          arr = [...arr]
-//       }
-//    }
-//    return arr
-// }
-
-
-// const selectedSort = async (arr: TArray, rule: string, render: (arr: TArray) => void, min?: number) => {
-
-//    for (let i = 0; i <= arr.length - 1; i++) {
-//       min = i
-
-//       for (let j = i; j <= arr.length - 1; j++) {
-//          rule === "ascending" ? arr[j][0] < arr[min][0] ? min = j : "" : arr[j][0] > arr[min][0] ? min = j : -Infinity
-//       }
-
-//       rule === "ascending" ? arr[i][0] > arr[min][0] ? await swap(arr, i, min) : null : arr[i][0] < arr[min][0] ? await swap(arr, i, min) : NaN
-//       render([...arr])
-//    }
-//    return arr
-// }

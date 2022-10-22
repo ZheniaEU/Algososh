@@ -5,7 +5,7 @@ import styles from "./column.module.css"
 
 interface ColumnProps {
    index: number
-   state?: ElementStates
+   state?: string
    extraClass?: string
 }
 
