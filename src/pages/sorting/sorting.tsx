@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { FC, useEffect, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Column } from "components/ui/column/column"
@@ -14,26 +13,26 @@ type Tuple = [number, string]
 
 type Render = (arr: Array<Tuple>) => void
 
+const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<Tuple> = []) => {
+
+   while (i < length) {
+      arr.push([randomInteger(min, max), ElementStates.Default])
+      i++
+   }
+   return arr
+}
+
+const randomInteger = (min: number, max: number) => {
+
+   const rand = min + Math.random() * (max + 1 - min)
+   return Math.floor(rand)
+}
+
 export const SortingPage: FC = () => {
 
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
    const [sort, setSort] = useState<"selection" | "bubble">("selection")
-
-   const getArray = (min: number = 0, max: number = 100, length: number, i: number = 0, arr: Array<Tuple> = []) => {
-
-      while (i < length) {
-         arr.push([randomInteger(min, max), ElementStates.Default])
-         i++
-      }
-      return arr
-   }
-
-   const randomInteger = (min: number, max: number) => {
-
-      const rand = min + Math.random() * (max + 1 - min)
-      return Math.floor(rand)
-   }
 
    const createArrayWithButton = () => {
       setArr(getArray(0, 100, randomInteger(3, 17)))
@@ -77,9 +76,9 @@ export const SortingPage: FC = () => {
             await waitSleep(500)
             if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Default
 
-            if (isAsc && arr[j][0] < arr[min][0] || !isAsc && arr[j][0] > arr[min][0]) min = j
+            if ((isAsc && arr[j][0] < arr[min][0]) || (!isAsc && arr[j][0] > arr[min][0])) min = j
 
-            if (isAsc && arr[i][0] > arr[min][0] || !isAsc && arr[i][0] < arr[min][0])
+            if ((isAsc && arr[i][0] > arr[min][0]) || (!isAsc && arr[i][0] < arr[min][0]))
                swap(arr, i, min)
          }
          //покраска пройденного элемента
@@ -108,7 +107,7 @@ export const SortingPage: FC = () => {
             render([...arr])
             await waitSleep(500)
 
-            if (isAsc && arr[j][0] > arr[j + 1][0] || !isAsc && arr[j][0] < arr[j + 1][0])
+            if ((isAsc && arr[j][0] > arr[j + 1][0]) || (!isAsc && arr[j][0] < arr[j + 1][0]))
                swap(arr, j, j + 1)
 
          }
@@ -146,7 +145,6 @@ export const SortingPage: FC = () => {
                   <li className={styles.li} key={i} ><Column index={e[0]} state={e[1]} /></li>
                )}
          </ul>
-
       </SolutionLayout>
    )
 }
