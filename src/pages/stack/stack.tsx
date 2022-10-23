@@ -1,7 +1,7 @@
+import { FC, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
 import { Input } from "components/ui/input/input"
-import { FC, useState } from "react"
 import { ElementStates } from "types/element-states"
 import { SolutionLayout } from "../../components/ui/solution-layout/solution-layout"
 
@@ -104,7 +104,7 @@ export const StackPage: FC = () => {
       <SolutionLayout title="Стек">
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
-               <Input placeholder="Введите текст" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} value={input} />
+               <Input placeholder="Введите число" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} value={input} />
                <Button type="submit" text="Добавить" disabled={!input} isLoader={loading} />
                <Button type="button" text="Удалить" onClick={deleteElement} disabled={!arr.length} isLoader={loading} />
                <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={!arr.length} onClick={clear} isLoader={loading} />
