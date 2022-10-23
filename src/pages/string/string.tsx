@@ -12,7 +12,7 @@ import styles from "./string.module.css"
 export const StringComponent: FC = () => {
 
    //получаемый импут
-   const [input, setInput] = useState<string>("")
+   const [input, setInput] = useState("")
    //обрабатываемый массив
    const [arr, setArr] = useState<Array<Array<string>>>([])
    // флаг загрузки
@@ -48,7 +48,7 @@ export const StringComponent: FC = () => {
          }
          //отображение текущего состояния
          setArr([...arr])
-         //задержа, если это последний свап убераю задержку
+         //задержа, если это последний свап убираю задержку
          start < max ? await waitSleep(SHORT_DELAY_IN_MS) : await waitSleep(0)
          start++
          end--
