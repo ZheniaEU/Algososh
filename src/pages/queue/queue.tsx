@@ -94,15 +94,31 @@ export const QueuePage: FC = () => {
    const getTemporaryElement = async () => {
       const copyArr = [...addColor(queue.getArray())]
       //  copyArr[copyArr.length - 1][1] = ElementStates.Changing
+
       let tail = queue.getTail()
 
+      let array = addColor(queue.getArray())
 
-      console.log(tail)
 
       let head = queue.peak()
+      // console.log(array.map((e: any) => {
+      //    if (e === tail) {
+      //       return [[e[0][0], e[0][1]], e[1] = ElementStates.Changing]
+      //    } else {
+      //       return e
+      //    }
+      // }))
 
-      console.log(head)
-      return console.log([...arr])
+      // console.log(head)
+      // console.log(tail)
+      // console.log(array)
+      return console.log(array.map((e: any) => {
+         if (e === tail) {
+            return "ебобо"
+         } else {
+            return e
+         }
+      }))
       setArr([...copyArr])
       copyArr[copyArr.length - 1][1] = ElementStates.Changing
    }
@@ -114,6 +130,12 @@ export const QueuePage: FC = () => {
       setArr(addColor(queue.getArray()))
       await waitSleep(500)
       //    console.log([...arr])
+      let tail = queue.getTail()
+
+      let array = addColor(queue.getArray())
+
+
+      let head = queue.peak()
       getTemporaryElement()
 
       setInput("")
