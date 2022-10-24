@@ -14,13 +14,45 @@
 
 .ul {
    display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
+   width: 656px;
    gap: 16px;
-   margin: 52px 0 0;
+   margin: 52px auto 0;
    padding: 0;
+
 }
 
 .li {
+   will-change: transform;
    list-style: none;
+}
+
+
+.fake {
+   position: absolute;
+   will-change: transform;
+   list-style: none;
+}
+
+.fake:nth-child(2) {
+   margin-left: 96px;
+}
+
+.fake:nth-child(3) {
+   margin-left: 192px;
+}
+
+.fake:nth-child(4) {
+   margin-left: 288px;
+}
+
+.fake:nth-child(5) {
+   margin-left: 384px;
+}
+
+.fake:nth-child(6) {
+   margin-left: 480px;
+}
+
+.fake:nth-child(7) {
+   margin-left: 576px;
 }

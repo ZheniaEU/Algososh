@@ -68,7 +68,7 @@ export const FibonacciPage: FC = () => {
       <SolutionLayout title="Последовательность Фибоначчи">
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
-               <Input placeholder="Введите число" type="number" isLimitText={true} max={19} value={input} onChange={(e) => setInput(e.currentTarget.value)} />
+               <Input placeholder="Введите число" type="number" isLimitText={true} max={19} value={input} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} />
                <Button type="submit" text="Рассчитать" disabled={input === "" || parseInt(input) > 19 || parseInt(input) < 1} isLoader={loading} />
             </div>
          </form>

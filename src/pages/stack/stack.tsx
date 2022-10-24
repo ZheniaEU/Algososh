@@ -60,7 +60,9 @@ class Stack<T> {
       this.container.length = 0
    }
 
-   getArray = (): Array<T | null> => this.container
+   getArray(): Array<T | null> {
+      return this.container
+   }
 
    isEmpty(): boolean {
       return this.curr === 0
