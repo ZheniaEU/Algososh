@@ -9,7 +9,7 @@ import { ElementStates } from "types/element-states"
 
 import styles from "./queue.module.css"
 
-type Tuple = [[string, number], string]
+type Tuple = [string, string]
 
 const waitSleep = (ms: number) => {
    return new Promise((resolve) => {
@@ -52,8 +52,12 @@ class Queue<T> {
       return this.container[this.head]
    }
 
-   getTail(): T | null {
-      return this.container[this.tail - 1]
+   gethead(): number {
+      return this.head
+   }
+
+   getTail(): number {
+      return this.tail
    }
 
    clear(): void {
@@ -71,7 +75,7 @@ class Queue<T> {
       return this.size === 0
    }
 }
-const queue = new Queue<[string, number]>(7)
+const queue = new Queue<string>(7)
 
 export const QueuePage: FC = () => {
 
@@ -80,15 +84,10 @@ export const QueuePage: FC = () => {
    const [loading, setLoading] = useState<boolean>(false)
 
    const fake = new Array(7).fill(null)
-   const addColor = (arr: Array<[string, number] | null>): Array<Tuple> => {
-      return arr.map((e) => ([e ? e : ["", 1], ElementStates.Default]))
-   }
 
-   // function swap(arr: Array<Tuple>, el: Tuple) {
-   //    for (let i = 0; i < arr.length; ++i)
-   //       if (arr[i][0][0] === el[0][0] && arr[i][0][1] === el[0][1] && arr[i][1] === el[1]) arr[i][1] = ElementStates.Changing
-   //    return console.log(arr)
-   // }
+   const addColor = (arr: Array<string | null>): Array<Tuple> => {
+      return arr.map((e) => (e ? [e, ElementStates.Default] : ["", ElementStates.Default]))
+   }
 
    const getTemporaryElement = async () => {
    }
@@ -96,10 +95,10 @@ export const QueuePage: FC = () => {
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
-      queue.enqueue([input, Date.now()])
+      queue.enqueue(input)
       setArr(addColor(queue.getArray()))
       await waitSleep(500)
-      let tail = [queue.getTail(), ElementStates.Default]
+
       //   swap(addColor(queue.getArray()), tail as Tuple)
 
       //  getTemporaryElement()
@@ -118,8 +117,6 @@ export const QueuePage: FC = () => {
       setArr(addColor(queue.getArray()))
    }
 
-
-
    return (
       <SolutionLayout title="Очередь">
          <form className={styles.form} onSubmit={clickHandler}>
@@ -136,7 +133,7 @@ export const QueuePage: FC = () => {
             )}
             {arr &&
                arr.map((e, i) =>
-                  <li className={styles.li} key={i} ><Circle letter={e[0][0]} head={queue.peak() === e[0] ? "head" : null} tail={queue.getTail() === e[0] ? "tail" : null} state={e[1]} index={i} /></li>
+                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} tail={i === queue.getTail() - 1 ? "хвост" : null} head={i === queue.gethead() ? "барабан" : null} index={i} /></li>
                )}
          </ul>
       </SolutionLayout>
