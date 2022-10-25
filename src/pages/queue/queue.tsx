@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import { FC, useEffect, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Input } from "components/ui/input/input"
@@ -10,6 +9,8 @@ import { ElementStates } from "types/element-states"
 import styles from "./queue.module.css"
 
 type Tuple = [string, string]
+
+type Render = (arr: Array<Tuple>) => void
 
 const waitSleep = (ms: number) => {
    return new Promise((resolve) => {
@@ -24,7 +25,7 @@ class Queue<T> {
    private curr: number = 0
 
    constructor(private readonly size: number) {
-      this.container = Array(size < 0 ? 0 : size)
+      this.container = Array(size < 0 ? 0 : size).fill(null)
    }
 
    dequeue(): T | null {
@@ -52,19 +53,19 @@ class Queue<T> {
       return this.container[this.head]
    }
 
-   getHead(): number {
-      return this.head
+   getHead(): number | null {
+      return this.container[this.head] === null ? null : this.head
    }
 
    getTail(): number {
-      return this.tail
+      return this.tail - 1
    }
 
    clear(): void {
       this.head = 0
       this.tail = 0
       this.curr = 0
-      this.container = Array(this.size < 0 ? 0 : this.size)
+      this.container = Array(this.size < 0 ? 0 : this.size).fill(null)
    }
 
    getArray(): Array<T | null> {
@@ -84,50 +85,50 @@ export const QueuePage: FC = () => {
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
 
-   const fake = new Array(7).fill(null)
-
    const addColor = (arr: Array<string | null>): Array<Tuple> => {
-      return arr.map((e) => (e  ? [e, ElementStates.Default] : ["", ElementStates.Default]))
+      const result = Array(arr.length)
+      for (let i = 0; i < arr.length; i++) {
+         result[i] = [arr[i] ? arr[i] : "", ElementStates.Default]
+      }
+      return result
    }
 
-   const getTemporaryElement = async () => {
+   useEffect(() => {
+      setArr(addColor(queue.getArray()))
+   }, [])
+
+   const getTemporaryTail = async (render: Render): Promise<void> => {
+      const arr = addColor(queue.getArray())
+      const tail = queue.getTail()
+      arr[tail][1] = ElementStates.Changing
+      render(arr)
+      await waitSleep(500)
+      arr[tail][1] = ElementStates.Default
+      render(arr)
    }
-
-   function swap() {
-
-      let arr = addColor(queue.getArray())
-
-      let el = [queue.peak(), ElementStates.Default]
-
-
-
-      for (let i = 0; i < arr.length; ++i)
-   //   console.log(arr, el)
-         // @ts-ignore
-         console.log(arr[i][1], el[1])
-      // @ts-ignore
-      if (arr[i][0] === el[0] && arr[i][1] === el[1]) arr[i][1] = "jopa"
-      return arr
+   const getTemporaryHead = async (render: Render): Promise<void> => {
+      const arr = addColor(queue.getArray())
+      const head = queue.getHead()!
+      arr[head][1] = ElementStates.Changing
+      render(arr)
+      await waitSleep(500)
+      queue.dequeue()
+      render(addColor(queue.getArray()))
    }
 
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
       queue.enqueue(input)
-      setArr(addColor(queue.getArray()))
-      await waitSleep(500)
-
-      swap()
-
-      //  getTemporaryElement()
-
+      await getTemporaryTail(setArr)
       setInput("")
       setLoading(false)
    }
 
    const deleteElement = async () => {
-      queue.dequeue()
-      setArr(addColor(queue.getArray()))
+      setLoading(true)
+      await getTemporaryHead(setArr)
+      setLoading(false)
    }
 
    const clear = () => {
@@ -141,17 +142,14 @@ export const QueuePage: FC = () => {
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
                <Button type="submit" text="Добавить" disabled={!input} isLoader={loading} />
-               <Button type="button" text="Удалить" onClick={deleteElement} disabled={!arr.length} isLoader={loading} />
-               <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={!arr.length} onClick={clear} isLoader={loading} />
+               <Button type="button" text="Удалить" onClick={deleteElement} disabled={queue.getHead() === null} isLoader={loading} />
+               <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={queue.getHead() === null} onClick={clear} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>
-            {fake.map((e, i) =>
-               <li className={styles.fake} key={i}>  <Circle letter={e} index={i} /> </li>
-            )}
             {arr &&
                arr.map((e, i) =>
-                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} tail={i === queue.getTail() - 1 ? "хвост" : null} head={i === queue.getHead() ? "барабан" : null} index={i} /></li>
+                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} tail={i === queue.getTail() ? "tail" : null} head={i === queue.getHead() ? "head" : null} index={i} /></li>
                )}
          </ul>
       </SolutionLayout>
