@@ -71,8 +71,7 @@ class Queue<T> {
       return this.size === 0
    }
 }
-
-const queue = new Queue<Tuple>(7)
+const queue = new Queue<[string, number]>(7)
 
 export const QueuePage: FC = () => {
 
@@ -81,77 +80,36 @@ export const QueuePage: FC = () => {
    const [loading, setLoading] = useState<boolean>(false)
 
    const fake = new Array(7).fill(null)
-
-   const addColor = (arr: Array<Tuple | null>): Array<Tuple> => {
-      return arr.map((e) => ([e ? e : ["", 1], ElementStates.Default])) as Array<Tuple>
+   const addColor = (arr: Array<[string, number] | null>): Array<Tuple> => {
+      return arr.map((e) => ([e ? e : ["", 1], ElementStates.Default]))
    }
 
-
-   // useEffect(() => {
-   //    setArr(addColor(queue.getArray()))
-   // }, [])
+   // function swap(arr: Array<Tuple>, el: Tuple) {
+   //    for (let i = 0; i < arr.length; ++i)
+   //       if (arr[i][0][0] === el[0][0] && arr[i][0][1] === el[0][1] && arr[i][1] === el[1]) arr[i][1] = ElementStates.Changing
+   //    return console.log(arr)
+   // }
 
    const getTemporaryElement = async () => {
-      //  const copyArr = [...addColor(queue.getArray())]
-      //  copyArr[copyArr.length - 1][1] = ElementStates.Changing
-
-      let tail = queue.getTail()
-      tail?.map(e => [e, ElementStates.Changing])
-
-  //    console.log(tail)
-
-      //      let array = addColor(queue.getArray())
-
-
-      let head = queue.peak()
-      // console.log(array.map((e: any) => {
-      //    if (e === tail) {
-      //       return [[e[0][0], e[0][1]], e[1] = ElementStates.Changing]
-      //    } else {
-      //       return e
-      //    }
-      // }))
-
-      // console.log(head)
-    //  console.log(tail)
-      // console.log(array)
-      // return console.log(array.map((e: any) => {
-      //    if (e === tail) {
-      //       return "ебобо"
-      //    } else {
-      //       return e
-      //    }
-      // }))
-      // setArr([...copyArr])
-      // copyArr[copyArr.length - 1][1] = ElementStates.Changing
    }
 
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
-      queue.enqueue([[input, Date.now()], ElementStates.Changing])
-
+      queue.enqueue([input, Date.now()])
       setArr(addColor(queue.getArray()))
       await waitSleep(500)
-      //    console.log([...arr])
-      let tail = queue.getTail()
+      let tail = [queue.getTail(), ElementStates.Default]
+      //   swap(addColor(queue.getArray()), tail as Tuple)
 
-      //    let array = addColor(queue.getArray())
-
-
-      let head = queue.peak()
-      getTemporaryElement()
+      //  getTemporaryElement()
 
       setInput("")
       setLoading(false)
    }
 
    const deleteElement = async () => {
-     console.log(queue.getArray())
       queue.dequeue()
-
-      console.log(queue.getArray())
-
       setArr(addColor(queue.getArray()))
    }
 
@@ -177,12 +135,10 @@ export const QueuePage: FC = () => {
                <li className={styles.fake} key={i}>  <Circle letter={e} index={i} /> </li>
             )}
             {arr &&
-               arr.map((e, i) => {
-                  if (e) console.log(arr)
-                  if (e)
-                     return <li className={styles.li} key={i} > <Circle letter={e[0][0]} state={e[1]} index={i} /></li>
-               })}
+               arr.map((e, i) =>
+                  <li className={styles.li} key={i} ><Circle letter={e[0][0]} head={queue.peak() === e[0] ? "head" : null} tail={queue.getTail() === e[0] ? "tail" : null} state={e[1]} index={i} /></li>
+               )}
          </ul>
-      </SolutionLayout >
+      </SolutionLayout>
    )
 }
