@@ -1,0 +1,46 @@
+.box {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 952px;
+   margin: 0 auto;
+}
+
+.div {
+   display: flex;
+   justify-content: center;
+   width: 952px;
+   height: 60px;
+   gap: 12px;
+}
+
+.div:nth-child(2) {
+   margin-top: 38px;
+}
+
+.input {
+   display: flex;
+   gap: 12px;
+}
+
+.ul {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin: 52px 0 0;
+   padding: 0;
+}
+
+.li {
+   list-style: none;
+}
+
+.wrapper {
+   display: flex;
+   align-items: center;
+
+}
+
+.margin {
+   margin: 0 16px;
+}

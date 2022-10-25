@@ -77,6 +77,14 @@ class Queue<T> {
    }
 }
 
+const addColor = (arr: Array<string | null>): Array<Tuple> => {
+   const result = Array(arr.length)
+   for (let i = 0; i < arr.length; i++) {
+      result[i] = [arr[i] ? arr[i] : "", ElementStates.Default]
+   }
+   return result
+}
+
 const queue = new Queue<string>(7)
 
 export const QueuePage: FC = () => {
@@ -84,14 +92,7 @@ export const QueuePage: FC = () => {
    const [input, setInput] = useState("")
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
-
-   const addColor = (arr: Array<string | null>): Array<Tuple> => {
-      const result = Array(arr.length)
-      for (let i = 0; i < arr.length; i++) {
-         result[i] = [arr[i] ? arr[i] : "", ElementStates.Default]
-      }
-      return result
-   }
+   const disableButton = addColor(queue.getArray()).filter(e => e[0] !== "").length
 
    useEffect(() => {
       setArr(addColor(queue.getArray()))
@@ -141,7 +142,7 @@ export const QueuePage: FC = () => {
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Добавить" disabled={!input} isLoader={loading} />
+               <Button type="submit" text="Добавить" disabled={!input || disableButton === 7} isLoader={loading} />
                <Button type="button" text="Удалить" onClick={deleteElement} disabled={queue.getHead() === null} isLoader={loading} />
                <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={queue.getHead() === null} onClick={clear} isLoader={loading} />
             </div>
