@@ -52,7 +52,7 @@ class Queue<T> {
       return this.container[this.head]
    }
 
-   gethead(): number {
+   getHead(): number {
       return this.head
    }
 
@@ -75,6 +75,7 @@ class Queue<T> {
       return this.size === 0
    }
 }
+
 const queue = new Queue<string>(7)
 
 export const QueuePage: FC = () => {
@@ -86,10 +87,27 @@ export const QueuePage: FC = () => {
    const fake = new Array(7).fill(null)
 
    const addColor = (arr: Array<string | null>): Array<Tuple> => {
-      return arr.map((e) => (e ? [e, ElementStates.Default] : ["", ElementStates.Default]))
+      return arr.map((e) => (e  ? [e, ElementStates.Default] : ["", ElementStates.Default]))
    }
 
    const getTemporaryElement = async () => {
+   }
+
+   function swap() {
+
+      let arr = addColor(queue.getArray())
+
+      let el = [queue.peak(), ElementStates.Default]
+
+
+
+      for (let i = 0; i < arr.length; ++i)
+   //   console.log(arr, el)
+         // @ts-ignore
+         console.log(arr[i][1], el[1])
+      // @ts-ignore
+      if (arr[i][0] === el[0] && arr[i][1] === el[1]) arr[i][1] = "jopa"
+      return arr
    }
 
    const clickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -99,7 +117,7 @@ export const QueuePage: FC = () => {
       setArr(addColor(queue.getArray()))
       await waitSleep(500)
 
-      //   swap(addColor(queue.getArray()), tail as Tuple)
+      swap()
 
       //  getTemporaryElement()
 
@@ -133,7 +151,7 @@ export const QueuePage: FC = () => {
             )}
             {arr &&
                arr.map((e, i) =>
-                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} tail={i === queue.getTail() - 1 ? "хвост" : null} head={i === queue.gethead() ? "барабан" : null} index={i} /></li>
+                  <li className={styles.li} key={i} ><Circle letter={e[0]} state={e[1]} tail={i === queue.getTail() - 1 ? "хвост" : null} head={i === queue.getHead() ? "барабан" : null} index={i} /></li>
                )}
          </ul>
       </SolutionLayout>
