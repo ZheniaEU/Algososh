@@ -14,45 +14,104 @@ type Tuple = [string, string]
 
 type Render = (arr: Array<Tuple>) => void
 
-class ListNode<T> {
-   constructor(
-      public data: T,
-      public next: ListNode<T> | null = null,
-      public prev: ListNode<T> | null = null
-   ) { }
+abstract class DoubleLinkedListNode<T> {
+   abstract data: T
+   abstract next: MyNode<T> | null
+   abstract prev: MyNode<T> | null
 }
 
-class List<T> {
+abstract class DoubleLinkedList<T> {
+   abstract head: MyNode<T> | null
+   abstract tail: MyNode<T> | null
+   abstract size: number
+   abstract getArray(): Array<T>
+   abstract insert(dara: T, index: number): this
+   abstract remove(index: number): this
+   abstract shift(): this
+   abstract unshift(data: T): this
+   abstract push(data: T): this
+   abstract pop(): this
+}
+
+class MyNode<T> extends DoubleLinkedListNode<T> {
    constructor(
-      public head: ListNode<T> | null = null,
-      public tail: ListNode<T> | null = null,
-   ) { }
+      public data: T,
+      public next: MyNode<T> | null = null,
+      public prev: MyNode<T> | null = null
+   ) { super() }
+}
+
+class MyList<T> extends DoubleLinkedList<T> {
+   constructor(
+      public head: MyNode<T> | null = null,
+      public tail: MyNode<T> | null = null,
+      public size: number = 0
+   ) { super() }
 
    getArray() {
       let array = []
-      if (this.head !== null) {
+      if (this.head) {
          let curr = this.head
-         while (curr.next !== null) {
+         while (curr.next) {
             array.push(curr.data)
-
             curr = curr.next
          }
          array.push(curr.data)
       }
-
       return array
    }
 
-   insert(item: T, index: number) {
-      let i = 0
+   insert(data: T, index: number) {
       let curr = this.head
-      while (i < index && curr?.next) {
+
+      if (index < 0 || index > this.size)
+         return this
+      else if (index === this.size)
+         return this.push(data)
+      else if (index === 0)
+         return this.unshift(data)
+
+
+      for (let i = 0; i <= this.size && curr; ++i) {
          if (i + 1 === index) {
-            curr.next = new ListNode(item, curr?.next)
+            let newNode = new MyNode(data, curr.next, curr)
+            curr.next = newNode
+            if (curr.next.next)
+               curr.next.next.prev = newNode
+            break;
+         } else {
+            curr = curr.next
          }
-         curr = curr.next
-         i++
       }
+
+      --this.size
+      return this
+   }
+
+   remove(index: number) {
+      let curr = this.head
+
+      if (index < -1 || index > this.size - 1)
+         return this
+      else if (this.size - 1 === index || index === -1)
+         return this.pop()
+      else if (index === 0)
+         return this.shift()
+
+
+      for (let i = 0; i < this.size && curr; ++i) {
+         if (i + 1 === index) {
+            curr.next = curr.next?.next || null
+            if (curr.next)
+               curr.next.prev = curr.next.prev?.prev || null
+            break
+         } else {
+            curr = curr.next
+         }
+      }
+
+      --this.size
+      return this
    }
 
    shift() {
@@ -61,11 +120,12 @@ class List<T> {
          if (this.head)
             this.head.prev = null
       }
+      --this.size
       return this
    }
 
    unshift(data: T) {
-      const newNode = new ListNode(data)
+      const newNode = new MyNode(data)
       if (this.head) {
          this.head.prev = newNode
          newNode.next = this.head
@@ -73,11 +133,12 @@ class List<T> {
          this.tail = newNode
       }
       this.head = newNode
+      ++this.size
       return this
    }
 
    push(data: T) {
-      let newNode = new ListNode(data)
+      let newNode = new MyNode(data)
       if (this.head && this.tail) {
          this.tail.next = newNode
          newNode.prev = this.tail
@@ -85,10 +146,11 @@ class List<T> {
          this.head = newNode
       }
       this.tail = newNode
+      ++this.size
       return this
    }
 
-   pop() { // O(1)
+   pop() {
       if (this.tail?.prev) {
          this.tail.prev.next = null
          this.tail = this.tail.prev
@@ -96,11 +158,15 @@ class List<T> {
          this.tail = null
          this.head = null
       }
+      --this.size
       return this
    }
+
 }
 
-const list = new List()
+const list = new MyList()
+
+// расширение контекста
 
 // @ts-ignore
 window.list = list
@@ -114,7 +180,7 @@ const randomInteger = (min: number, max: number) => {
 
 export const ListPage: FC = () => {
 
-   const [arr, setArr] = useState<Array<string>>(["0", "34", "8", "1"])
+   const [arr, setArr] = useState<Array<string>>([])
    const [loading, setLoading] = useState<boolean>(false)
 
    useLayoutEffect(() => {
