@@ -149,3 +149,9 @@ export class MyList<T> extends DoubleLinkedList<T> {
    }
 
 }
+
+export const waitSleep = (ms: number) => {
+   return new Promise((resolve) => {
+      setTimeout(resolve, ms)
+   })
+}

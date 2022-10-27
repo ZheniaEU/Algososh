@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { FC, FormEvent, useLayoutEffect, useState } from "react"
+import { FC, FormEvent, useLayoutEffect, useRef, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Input } from "components/ui/input/input"
 import { SolutionLayout } from "../../components/ui/solution-layout/solution-layout"
 import { Circle } from "components/ui/circle/circle"
 import { ArrowIcon } from "components/ui/icons/arrow-icon"
-import { MyList } from "./utils"
+import { MyList, waitSleep } from "./utils"
 
 import { ElementStates } from "types/element-states"
 
@@ -35,6 +35,8 @@ export const ListPage: FC = () => {
    const [arr, setArr] = useState<Array<string>>([])
    const [loading, setLoading] = useState<boolean>(false)
    const [inputIndex, setInputIndex] = useState<string>("")
+   const [topCircle, setTopCircle] = useState<boolean>(true)
+   let count = 5
 
    useLayoutEffect(() => {
       for (let i = 0; i < 7; i++)
@@ -68,12 +70,11 @@ export const ListPage: FC = () => {
    }
 
    const deleteIndex = () => {
-   // list.remove(inputIndex)
+      setArr(list.remove(parseInt(inputIndex)).getArray())
    }
-   const clickIndex = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-    //  list.remove(inputIndex)
-    //  setArr(list.getArray())
+
+   const addElement = () => {
+      setArr(list.insert(input, parseInt(inputIndex)).getArray())
    }
 
    return (
@@ -86,18 +87,21 @@ export const ListPage: FC = () => {
                <Button linkedList="small" text="Удалить из head" disabled={list.getSize() === 0} onClick={deleteHead} />
                <Button linkedList="small" text="Удалить из tail" disabled={list.getSize() === 0} onClick={deleteTail} />
             </form>
-            <div className={styles.div} >
-               <Input width="width-short" placeholder="Введите индекс" type="text" max={4} value={inputIndex} onChange={e => setInputIndex(e.currentTarget.value.replace(/[^\d]/g, ""))}  />
-               <Button type="submit" linkedList="big" text="Добавить по индексу" disabled={!inputIndex} />
-               <Button linkedList="big" text="Удалить по индексу" disabled={!inputIndex} onClick={deleteIndex} />
+            <div className={styles.div}>
+               <Input width="width-short" placeholder="Введите индекс" type="text" max={4} value={inputIndex} onChange={e => setInputIndex(e.currentTarget.value.replace(/[^\d]/g, ""))} />
+               <Button linkedList="big" text="Добавить по индексу" disabled={(!inputIndex || !input) || parseInt(inputIndex) > list.getSize()} onClick={addElement} />
+               <Button linkedList="big" text="Удалить по индексу" disabled={!inputIndex || parseInt(inputIndex) > list.getSize() - 1} onClick={deleteIndex} />
             </div>
          </div>
          <ul className={styles.ul}>
             {arr &&
                arr.map((e, i) =>
-                  <li className={styles.li} key={i} >
+                  <li className={styles.li} key={i}>
                      <div className={styles.wrapper}>
-                        <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 ? "head" : null} tail={i === arr.length - 1 ? "tail" : null} />
+                        <div className={styles.circle_box}>
+                           <Circle isSmall={true} letter={e} extraClass={i === count && topCircle ? styles.a : i === count && topCircle === false? styles.g : styles.b} tailType={"element"} />
+                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 ? "head" : null} tail={i === arr.length - 1 ? "tail" : null} />
+                        </div>
                         {i !== arr.length - 1 &&
                            <ArrowIcon fill={"#0032FF"} />
                         }
@@ -109,7 +113,7 @@ export const ListPage: FC = () => {
    )
 }
 
-
+// {i === count ? styles.a : styles.b}
 // f=(before, after)=> (fn)=>(...args) => after(fn(...before(...args)))
 
 // f1=(...args)=> (console.log("i'm before"), args)

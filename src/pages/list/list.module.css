@@ -25,13 +25,13 @@
 
 .ul {
    display: flex;
-   flex-wrap: wrap;
    justify-content: center;
-   margin: 52px 0 0;
+   margin: 0;
    padding: 0;
 }
 
 .li {
+   margin: 120px 0 0;
    list-style: none;
 }
 
@@ -43,4 +43,29 @@
 
 .margin {
    margin: 0 16px;
+}
+
+.circle_box {
+   display: flex;
+   flex-wrap: wrap;
+   position: relative;
+}
+
+.a {
+   visibility: visible;
+   position: absolute;
+   top: -64px;
+   left: 28px;
+}
+
+.g {
+   visibility: visible;
+   position: absolute;
+   top: 64px;
+   left: 28px;
+}
+
+.b {
+   display: none;
+   visibility: hidden;
 }
