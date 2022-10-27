@@ -51,21 +51,21 @@
    position: relative;
 }
 
-.a {
+.top {
    visibility: visible;
    position: absolute;
    top: -64px;
    left: 28px;
 }
 
-.g {
+.bottom {
    visibility: visible;
    position: absolute;
-   top: 64px;
+   top: 118px;
    left: 28px;
 }
 
-.b {
+.hidden {
    display: none;
    visibility: hidden;
 }

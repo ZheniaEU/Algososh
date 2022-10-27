@@ -45,6 +45,10 @@ export class MyList<T> extends DoubleLinkedList<T> {
       return array
    }
 
+   getSize() {
+      return this.size -1
+   }
+
    insert(data: T, index: number) {
       let curr = this.head
 
@@ -142,10 +146,6 @@ export class MyList<T> extends DoubleLinkedList<T> {
       }
       --this.size
       return this
-   }
-
-   getSize() {
-      return this.size
    }
 
 }

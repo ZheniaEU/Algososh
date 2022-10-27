@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { FC, FormEvent, useLayoutEffect, useRef, useState } from "react"
+import { FC, FormEvent, useLayoutEffect, useState } from "react"
 import { Button } from "components/ui/button/button"
 import { Input } from "components/ui/input/input"
 import { SolutionLayout } from "../../components/ui/solution-layout/solution-layout"
@@ -13,15 +13,17 @@ import styles from "./list.module.css"
 
 type Tuple = [string, string]
 
-type Render = (arr: Array<Tuple>) => void
+type Render = (n: number) => void
 
 const list = new MyList<string>()
 
-// расширение контекста
-// Apostolico-Giancarlo algorithm
-
 // @ts-ignore
 window.list = list
+
+async function increment(n: number, render: Render) {
+   render(n++)
+   await waitSleep(500)
+}
 
 const randomInteger = (min: number, max: number) => {
 
@@ -33,10 +35,13 @@ export const ListPage: FC = () => {
 
    const [input, setInput] = useState("")
    const [arr, setArr] = useState<Array<string>>([])
-   const [loading, setLoading] = useState<boolean>(false)
-   const [inputIndex, setInputIndex] = useState<string>("")
-   const [topCircle, setTopCircle] = useState<boolean>(true)
-   let count = 5
+   const [loading, setLoading] = useState(false)
+   const [inputIndex, setInputIndex] = useState("")
+   // const [topCircle, setTopCircle] = useState(true)
+   const [count, setCount] = useState(-1)
+   const [green, setGreen] = useState(false)
+  // const [showCircle, setShowCircle] = useState(true)
+   const [a, setA] = useState<"top" | "hidden" | "bottom">("hidden")
 
    useLayoutEffect(() => {
       for (let i = 0; i < 7; i++)
@@ -47,15 +52,44 @@ export const ListPage: FC = () => {
 
    }, [])
 
-   const clickHandler = (e: FormEvent<HTMLFormElement>) => {
+   const clickHandler = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
+      setLoading(true)
+      setCount(0)
+      setA("top")
       list.unshift(input)
+      await waitSleep(1000)
+      setGreen(true)
       setArr(list.getArray())
+      setInput("")
+      setA("hidden")
+      await waitSleep(1000)
+      setGreen(false)
+      setArr(list.getArray())
+      setCount(-1)
+      setLoading(false)
    }
 
-   const addtoTail = () => {
-      list.push(input)
+   const addtoTail = async () => {
+      setLoading(true)
+      setCount(list.size - 1)
+      setA("top")
+  //    setShowCircle(true)
+      await waitSleep(1000)
       setArr(list.getArray())
+      list.push(input)
+   //   setCount(list.size - 1)
+      await waitSleep(1000)
+      setGreen(true)
+      setArr(list.getArray())
+      setCount(list.size - 1)
+      setInput("")
+      setA("hidden")
+     // setShowCircle(false)
+      await waitSleep(1000)
+      setGreen(false)
+      setCount(-1)
+      setLoading(false)
    }
 
    const deleteTail = () => {
@@ -81,16 +115,16 @@ export const ListPage: FC = () => {
       <SolutionLayout title="Связный список">
          <div className={styles.box}>
             <form className={styles.div} onSubmit={clickHandler}>
-               <Input placeholder="Введите текст" type="text" maxLength={4} isLimitText={true} width="width-short" onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} value={input} />
-               <Button type="submit" linkedList="small" text="Добавить в head" disabled={!input} />
-               <Button linkedList="small" text="Добавить в tail" disabled={!input} onClick={addtoTail} />
-               <Button linkedList="small" text="Удалить из head" disabled={list.getSize() === 0} onClick={deleteHead} />
-               <Button linkedList="small" text="Удалить из tail" disabled={list.getSize() === 0} onClick={deleteTail} />
+               <Input placeholder="Введите значение" type="text" maxLength={4} isLimitText={true} width="width-short" value={input} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} />
+               <Button type="submit" linkedList="small" text="Добавить в head" disabled={!input} isLoader={loading} />
+               <Button linkedList="small" text="Добавить в tail" disabled={!input} onClick={addtoTail} isLoader={loading} />
+               <Button linkedList="small" text="Удалить из head" disabled={list.size === 0} onClick={deleteHead} isLoader={loading} />
+               <Button linkedList="small" text="Удалить из tail" disabled={list.size === 0} onClick={deleteTail} isLoader={loading} />
             </form>
             <div className={styles.div}>
                <Input width="width-short" placeholder="Введите индекс" type="text" max={4} value={inputIndex} onChange={e => setInputIndex(e.currentTarget.value.replace(/[^\d]/g, ""))} />
-               <Button linkedList="big" text="Добавить по индексу" disabled={(!inputIndex || !input) || parseInt(inputIndex) > list.getSize()} onClick={addElement} />
-               <Button linkedList="big" text="Удалить по индексу" disabled={!inputIndex || parseInt(inputIndex) > list.getSize() - 1} onClick={deleteIndex} />
+               <Button linkedList="big" text="Добавить по индексу" disabled={(!inputIndex || !input) || parseInt(inputIndex) > list.size} onClick={addElement} isLoader={loading} />
+               <Button linkedList="big" text="Удалить по индексу" disabled={!inputIndex || parseInt(inputIndex) > list.size - 1} onClick={deleteIndex} isLoader={loading} />
             </div>
          </div>
          <ul className={styles.ul}>
@@ -99,11 +133,11 @@ export const ListPage: FC = () => {
                   <li className={styles.li} key={i}>
                      <div className={styles.wrapper}>
                         <div className={styles.circle_box}>
-                           <Circle isSmall={true} letter={e} extraClass={i === count && topCircle ? styles.a : i === count && topCircle === false? styles.g : styles.b} tailType={"element"} />
-                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 ? "head" : null} tail={i === arr.length - 1 ? "tail" : null} />
+                           <Circle isSmall={true} letter={input} extraClass={i === count && a === "top" ? styles.top : i === count && a === "bottom" ? styles.bottom : styles.hidden} state={ElementStates.Changing} />
+                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && a !== "top" ? "head" : null} tail={i === arr.length - 1 && a !== "bottom" ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
                         </div>
                         {i !== arr.length - 1 &&
-                           <ArrowIcon fill={"#0032FF"} />
+                           <ArrowIcon fill={i < count && count !== list.size - 1 ? "#d252e1" : "#0032FF"} />
                         }
                      </div>
                   </li>
@@ -112,18 +146,3 @@ export const ListPage: FC = () => {
       </SolutionLayout>
    )
 }
-
-// {i === count ? styles.a : styles.b}
-// f=(before, after)=> (fn)=>(...args) => after(fn(...before(...args)))
-
-// f1=(...args)=> (console.log("i'm before"), args)
-// f2=(...args)=> (console.log("шото делаю"), args)
-// f3=(...args)=> console.log("i'm after")
-
-// let wrapped = f(f1,f3)
-
-// wrapped(f2)()
-
-// //wrapped(()=> setArr(list.shift().getArray()))
-
-// //onClick={wrapped(()=> setArr(list.shift().getArray())) }
