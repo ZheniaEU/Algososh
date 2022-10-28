@@ -1,21 +1,15 @@
-import { FC, useEffect, useState } from "react"
-import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
+import { FC, FormEvent, useEffect, useState } from "react"
+
+import { Input } from "components/ui/input/input"
 import { Button } from "components/ui/button/button"
 import { Circle } from "components/ui/circle/circle"
-import { Input } from "components/ui/input/input"
-import { SHORT_DELAY_IN_MS } from "constants/delays"
+import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
+
+import { calculationFibonacci } from "./utils"
+
+import { waitSleep } from "utils/utils"
 
 import styles from "./string.module.css"
-
-type Render = (arr: Array<number>) => void
-
-const waitSleep = (ms: number) => {
-   return new Promise((resolve) => {
-      setTimeout(() => {
-         resolve(null)
-      }, ms)
-   })
-}
 
 export const FibonacciPage: FC = () => {
 
@@ -26,10 +20,7 @@ export const FibonacciPage: FC = () => {
 
    useEffect(() => {
       if (arr.length !== inputArray.length) {
-         // setTimeout(() => {
-         //   setArr([...arr, inputArray[arr.length]])
-         // },  SHORT_DELAY_IN_MS)
-         waitSleep(SHORT_DELAY_IN_MS).then(() => {
+         waitSleep(500).then(() => {
             setArr([...arr, inputArray[arr.length]])
          })
       } else {
@@ -38,26 +29,7 @@ export const FibonacciPage: FC = () => {
       }
    }, [arr, inputArray])
 
-   const calculationFibonacci = (n: string, render: Render) => {
-      const number = parseInt(n)
-      if (number === 1) {
-         render([0])
-      }
-      if (number === 2) {
-         render([0, 1])
-      }
-
-      const arr = [0, 1]
-      let i = 2
-      while (i < number) {
-         let element = arr[i - 2] + arr[i - 1]
-         arr.push(element)
-         i++
-         render([...arr])
-      }
-   }
-
-   const clickHandler = (e: React.FormEvent<HTMLFormElement>) => {
+   const clickHandler = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
       if (input) calculationFibonacci(input, setInputArray)

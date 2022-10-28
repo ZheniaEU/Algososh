@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { FC, FormEvent, useEffect, useLayoutEffect, useState } from "react"
+import { FC, FormEvent, useEffect, useState } from "react"
 
 import { Button } from "components/ui/button/button"
 import { Input } from "components/ui/input/input"
@@ -7,7 +6,9 @@ import { Circle } from "components/ui/circle/circle"
 import { ArrowIcon } from "components/ui/icons/arrow-icon"
 import { SolutionLayout } from "components/ui/solution-layout/solution-layout"
 
-import { MyList, randomInteger, waitSleep } from "./utils"
+import { MyList } from "./utils"
+
+import { randomInteger, waitSleep } from "utils/utils"
 
 import { ElementStates } from "types/element-states"
 
@@ -15,11 +16,9 @@ import styles from "./list.module.css"
 
 type SetCount = (n: number) => void
 
-type Render = (arr: Array<string>) => void
-
 export const list = new MyList<string>()
 
-for (let i = 0; i < 7; i++)
+for (let i = 0; i < 4; i++)
    list.push(randomInteger(0, 100))
 
 export const ListPage: FC = () => {
@@ -135,12 +134,9 @@ export const ListPage: FC = () => {
       setTemporary(arr[parseInt(inputIndex)])
       setArr(list.remove(parseInt(inputIndex)).insert("", parseInt(inputIndex)).getArray())
       await waitSleep(1000)
-      setCount(-1)
       setCircle("hidden")
-      console.log(list.getArray(), parseInt(inputIndex))
       setArr(list.remove(parseInt(inputIndex)).getArray())
-      await waitSleep(1000)
-      setArr(list.getArray())
+      setCount(-1)
       setInput("")
       setInputIndex("")
       setLoading(false)
@@ -169,7 +165,7 @@ export const ListPage: FC = () => {
                      <div className={styles.wrapper}>
                         <div className={styles.circle_box}>
                            <Circle isSmall={true} letter={circle === "top" ? input : temporary} extraClass={i === count && circle === "top" ? styles.top : i === count && circle === "bottom" ? styles.bottom : styles.hidden} state={ElementStates.Changing} />
-                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && count !== i || (circle === "bottom" && i === 0) ? "head" : null} tail={i === arr.length - 1 && count !== i ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
+                           <Circle letter={e} index={i} extraClass={styles.margin} head={(i === 0 && count !== i) || (circle === "bottom" && i === 0) ? "head" : null} tail={i === arr.length - 1 && count !== i ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
                         </div>
                         {i !== arr.length - 1 &&
                            <ArrowIcon fill={i < count && count !== list.size - 1 ? "#d252e1" : "#0032FF"} />
