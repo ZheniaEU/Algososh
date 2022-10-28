@@ -35,12 +35,14 @@ export const StackPage: FC = () => {
    }
 
    const deleteElement = async () => {
+      setLoading(true)
       const copyArr = [...arr]
       copyArr[copyArr.length - 1][1] = ElementStates.Changing
       setArr(copyArr)
       await waitSleep(500)
       stack.pop()
       setArr(addColor(stack.getArray()))
+      setLoading(false)
    }
 
    const clear = () => {
