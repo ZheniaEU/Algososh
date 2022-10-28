@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { FC, FormEvent, useLayoutEffect, useState } from "react"
+import { FC, FormEvent, useEffect, useLayoutEffect, useState } from "react"
 
 import { Button } from "components/ui/button/button"
 import { Input } from "components/ui/input/input"
@@ -17,11 +17,6 @@ type Render = (n: number) => void
 
 const list = new MyList<string>()
 
-async function increment(n: number, render: Render) {
-   render(n++)
-   await waitSleep(500)
-}
-
 export const ListPage: FC = () => {
 
    const [input, setInput] = useState("")
@@ -30,26 +25,26 @@ export const ListPage: FC = () => {
    const [inputIndex, setInputIndex] = useState("")
    const [count, setCount] = useState(-1)
    const [green, setGreen] = useState(false)
-   const [a, setA] = useState<"top" | "hidden" | "bottom">("hidden")
+   const [circle, setCircle] = useState<"top" | "hidden" | "bottom">("hidden")
+   const [temporary, setTemporary] = useState("")
 
-   useLayoutEffect(() => {
+   useEffect(() => {
       for (let i = 0; i < 7; i++)
          list.push(randomInteger(0, 100))
       setArr(list.getArray())
-
    }, [])
 
    const clickHandler = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setLoading(true)
       setCount(0)
-      setA("top")
+      setCircle("top")
       list.unshift(input)
       await waitSleep(2000)
       setGreen(true)
       setArr(list.getArray())
       setInput("")
-      setA("hidden")
+      setCircle("hidden")
       await waitSleep(1000)
       setGreen(false)
       setArr(list.getArray())
@@ -60,14 +55,14 @@ export const ListPage: FC = () => {
    const addToTail = async () => {
       setLoading(true)
       setCount(list.size - 1)
-      setA("top")
+      setCircle("top")
       await waitSleep(2000)
       list.push(input)
       setCount(list.size - 1)
       setGreen(true)
       setArr(list.getArray())
       setInput("")
-      setA("hidden")
+      setCircle("hidden")
       await waitSleep(1000)
       setArr(list.getArray())
       setGreen(false)
@@ -75,25 +70,65 @@ export const ListPage: FC = () => {
       setLoading(false)
    }
 
-   const deleteHead = () => {
-      setArr(list.shift().getArray())
-   }
-
-   const deleteTail = () => {
+   const deleteHead = async () => {
       setLoading(true)
-      list.pop()
+      setCount(0)
+      setCircle("bottom")
+      setTemporary(arr[0])
+      list.shift().unshift("")
       setArr(list.getArray())
+      await waitSleep(2000)
+      setCircle("hidden")
+      setTemporary("")
+      setArr(list.shift().getArray())
+      setCount(-1)
       setLoading(false)
    }
 
+   const deleteTail = async () => {
+      setLoading(true)
+      setCircle("bottom")
+      setCount(list.size - 1)
+      setTemporary(arr[list.size - 1])
+      list.pop().push("")
+      setArr(list.getArray())
+      await waitSleep(2000)
+      setTemporary("")
+      setArr(list.pop().getArray())
+      setCircle("hidden")
+      setCount(-1)
+      setLoading(false)
+   }
+
+   async function increment(render: Render, n: number,) {
+      while (n <=  parseInt(inputIndex)) {
+         render(n++)
+         setArr(list.getArray())
+         await waitSleep(500)
+      }
+   }
+
+   const addElement = async () => {
+      setLoading(true)
+      setCircle("top")
+      setTemporary(input)
+      await increment(setCount, count)
+      setArr(list.insert(input, parseInt(inputIndex)).getArray())
+      setCircle("hidden")
+      setGreen(true)
+      await waitSleep(1000)
+      setGreen(false)
+      setCount(-1)
+      setLoading(false)
+   }
 
    const deleteIndex = () => {
+      setLoading(true)
       setArr(list.remove(parseInt(inputIndex)).getArray())
+      setLoading(false)
    }
 
-   const addElement = () => {
-      setArr(list.insert(input, parseInt(inputIndex)).getArray())
-   }
+   console.log(list.head)
 
    return (
       <SolutionLayout title="Связный список">
@@ -117,8 +152,8 @@ export const ListPage: FC = () => {
                   <li className={styles.li} key={i}>
                      <div className={styles.wrapper}>
                         <div className={styles.circle_box}>
-                           <Circle isSmall={true} letter={input} extraClass={i === count && a === "top" ? styles.top : i === count && a === "bottom" ? styles.bottom : styles.hidden} state={ElementStates.Changing} />
-                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && a !== "top" ? "head" : null} tail={i === arr.length - 1 && a !== "bottom" ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
+                           <Circle isSmall={true} letter={circle === "top" ? input : temporary} extraClass={i === count && circle === "top" ? styles.top : i === count && circle === "bottom" ? styles.bottom : styles.hidden} state={ElementStates.Changing} />
+                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && count !== i ? "head" : null} tail={i === arr.length - 1 && count !== i ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
                         </div>
                         {i !== arr.length - 1 &&
                            <ArrowIcon fill={i < count && count !== list.size - 1 ? "#d252e1" : "#0032FF"} />
