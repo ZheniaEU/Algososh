@@ -18,7 +18,7 @@ type SetCount = (n: number) => void
 
 export const list = new MyList<string>()
 
-for (let i = 0; i < 4; i++)
+for (let i = 0; i < 7; i++)
    list.push(randomInteger(0, 100))
 
 export const ListPage: FC = () => {

@@ -71,7 +71,7 @@ export class MyList<T> extends DoubleLinkedList<T> {
          }
       }
 
-      --this.size
+      this.size++
       return this
    }
 
