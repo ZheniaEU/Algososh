@@ -46,7 +46,7 @@ export class MyList<T> extends DoubleLinkedList<T> {
    }
 
    getSize() {
-      return this.size -1
+      return this.size - 1
    }
 
    insert(data: T, index: number) {
@@ -150,7 +150,13 @@ export class MyList<T> extends DoubleLinkedList<T> {
 
 }
 
-export const waitSleep = (ms: number) => {
+export const randomInteger = (min: number, max: number) => {
+
+   const rand = min + Math.random() * (max + 1 - min)
+   return Math.floor(rand).toString()
+}
+
+export function waitSleep(ms: number) {
    return new Promise((resolve) => {
       setTimeout(resolve, ms)
    })
