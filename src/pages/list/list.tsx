@@ -13,9 +13,14 @@ import { ElementStates } from "types/element-states"
 
 import styles from "./list.module.css"
 
-type Render = (n: number) => void
+type SetCount = (n: number) => void
 
-const list = new MyList<string>()
+type Render = (arr: Array<string>) => void
+
+export const list = new MyList<string>()
+
+for (let i = 0; i < 7; i++)
+   list.push(randomInteger(0, 100))
 
 export const ListPage: FC = () => {
 
@@ -29,8 +34,6 @@ export const ListPage: FC = () => {
    const [temporary, setTemporary] = useState("")
 
    useEffect(() => {
-      for (let i = 0; i < 7; i++)
-         list.push(randomInteger(0, 100))
       setArr(list.getArray())
    }, [])
 
@@ -100,9 +103,9 @@ export const ListPage: FC = () => {
       setLoading(false)
    }
 
-   async function increment(render: Render, n: number,) {
-      while (n <=  parseInt(inputIndex)) {
-         render(n++)
+   async function increment(setCount: SetCount, counter: number, result: number) {
+      while (counter <= result) {
+         setCount(counter++)
          setArr(list.getArray())
          await waitSleep(500)
       }
@@ -112,23 +115,36 @@ export const ListPage: FC = () => {
       setLoading(true)
       setCircle("top")
       setTemporary(input)
-      await increment(setCount, count)
+      await increment(setCount, count, parseInt(inputIndex))
       setArr(list.insert(input, parseInt(inputIndex)).getArray())
       setCircle("hidden")
       setGreen(true)
       await waitSleep(1000)
       setGreen(false)
       setCount(-1)
+      setInput("")
+      setInputIndex("")
       setLoading(false)
    }
 
-   const deleteIndex = () => {
+   const deleteIndex = async () => {
       setLoading(true)
+      setCircle("bottom")
+      setTemporary("")
+      await increment(setCount, count, parseInt(inputIndex))
+      setTemporary(arr[parseInt(inputIndex)])
+      setArr(list.remove(parseInt(inputIndex)).insert("", parseInt(inputIndex)).getArray())
+      await waitSleep(1000)
+      setCount(-1)
+      setCircle("hidden")
+      console.log(list.getArray(), parseInt(inputIndex))
       setArr(list.remove(parseInt(inputIndex)).getArray())
+      await waitSleep(1000)
+      setArr(list.getArray())
+      setInput("")
+      setInputIndex("")
       setLoading(false)
    }
-
-   console.log(list.head)
 
    return (
       <SolutionLayout title="Связный список">
@@ -153,7 +169,7 @@ export const ListPage: FC = () => {
                      <div className={styles.wrapper}>
                         <div className={styles.circle_box}>
                            <Circle isSmall={true} letter={circle === "top" ? input : temporary} extraClass={i === count && circle === "top" ? styles.top : i === count && circle === "bottom" ? styles.bottom : styles.hidden} state={ElementStates.Changing} />
-                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && count !== i ? "head" : null} tail={i === arr.length - 1 && count !== i ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
+                           <Circle letter={e} index={i} extraClass={styles.margin} head={i === 0 && count !== i || (circle === "bottom" && i === 0) ? "head" : null} tail={i === arr.length - 1 && count !== i ? "tail" : null} state={i === count && green ? ElementStates.Modified : i < count && count !== list.size - 1 ? ElementStates.Changing : ElementStates.Default} />
                         </div>
                         {i !== arr.length - 1 &&
                            <ArrowIcon fill={i < count && count !== list.size - 1 ? "#d252e1" : "#0032FF"} />
