@@ -1,0 +1,71 @@
+.box {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 952px;
+   margin: 0 auto;
+}
+
+.div {
+   display: flex;
+   justify-content: center;
+   width: 952px;
+   height: 60px;
+   gap: 12px;
+}
+
+.div:nth-child(2) {
+   margin-top: 38px;
+}
+
+.input {
+   display: flex;
+   gap: 12px;
+}
+
+.ul {
+   display: flex;
+   justify-content: center;
+   margin: 0;
+   padding: 0;
+}
+
+.li {
+   margin: 120px 0 0;
+   list-style: none;
+}
+
+.wrapper {
+   display: flex;
+   align-items: center;
+
+}
+
+.margin {
+   margin: 0 16px;
+}
+
+.circle_box {
+   display: flex;
+   flex-wrap: wrap;
+   position: relative;
+}
+
+.top {
+   visibility: visible;
+   position: absolute;
+   top: -64px;
+   left: 28px;
+}
+
+.bottom {
+   visibility: visible;
+   position: absolute;
+   top: 118px;
+   left: 28px;
+}
+
+.hidden {
+   display: none;
+   visibility: hidden;
+}

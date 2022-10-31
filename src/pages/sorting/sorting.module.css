@@ -1,0 +1,42 @@
+.container {
+   display: flex;
+   justify-content: center;
+}
+
+.radio {
+   display: flex;
+   width: 229px;
+   gap: 72px;
+   align-items: center;
+}
+
+.button_sort {
+   display: flex;
+   justify-content: space-between;
+   height: 60px;
+   margin-left: 12px;
+   width: 205px;
+}
+
+.button_sort:nth-child(3) {
+   width: 186px;
+}
+
+.button_create {
+   width: 168px;
+   margin-left: 80px;
+}
+
+.ul {
+   display: flex;
+   justify-content: center;
+   align-items: flex-end;
+   height: 348px;
+   gap: 10px;
+   margin: 48px 0 0;
+   padding: 0;
+}
+
+.li {
+   list-style: none;
+}

@@ -1,0 +1,26 @@
+.form {
+   display: flex;
+   justify-content: center;
+}
+
+.input {
+   display: flex;
+   gap: 12px;
+}
+
+.button_delete {
+   margin-left: 68px;
+}
+
+.ul {
+   display: flex;
+   width: 656px;
+   gap: 16px;
+   margin: 52px auto 0;
+   padding: 0;
+
+}
+
+.li {
+   list-style: none;
+}
