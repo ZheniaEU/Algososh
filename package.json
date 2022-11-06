@@ -1,14 +1,12 @@
 {
    "name": "algorithms-project",
-   "version": "0.1.0",
+   "version": "1.0.0",
    "private": true,
    "dependencies": {
       "@testing-library/jest-dom": "^5.16.5",
       "@testing-library/user-event": "^14.4.3",
       "@types/jest": "^29.1.2",
       "@types/node": "^18.8.5",
-      "@types/react": "^18.0.21",
-      "@types/react-dom": "^18.0.6",
       "nanoid": "^4.0.0",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
@@ -28,8 +26,7 @@
    "eslintConfig": {
       "extends": [
          "react-app",
-         "react-app/jest",
-         "plugin:cypress/recommended"
+         "react-app/jest"
       ]
    },
    "browserslist": {
@@ -46,11 +43,10 @@
    },
    "devDependencies": {
       "@testing-library/react": "^13.4.0",
+      "@types/react": "^18.0.25",
+      "@types/react-dom": "^18.0.8",
       "@types/react-router-dom": "^5.3.3",
       "cypress": "^10.11.0",
-      "eslint-plugin-cypress": "^2.12.1",
-      "fetch-mock": "^9.11.0",
-      "jest": "^27.5.1",
-      "react-test-renderer": "^18.2.0"
+      "eslint-plugin-cypress": "^2.12.1"
    }
 }

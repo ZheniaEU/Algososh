@@ -2,7 +2,7 @@
    "plugins": [
       "cypress"
    ],
-      "extends": [
-         "plugin:cypress/recommended"
-      ]
+   "extends": [
+      "plugin:cypress/recommended"
+   ]
 }
