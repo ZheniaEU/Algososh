@@ -4,7 +4,6 @@
    "private": true,
    "dependencies": {
       "@testing-library/jest-dom": "^5.16.5",
-      "@testing-library/react": "^13.4.0",
       "@testing-library/user-event": "^14.4.3",
       "@types/jest": "^29.1.2",
       "@types/node": "^18.8.5",
@@ -23,12 +22,14 @@
       "start": "set PORT=2 && react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
-      "eject": "react-scripts eject"
+      "eject": "react-scripts eject",
+      "cypress:open": "./node_modules/.bin/cypress open"
    },
    "eslintConfig": {
       "extends": [
          "react-app",
-         "react-app/jest"
+         "react-app/jest",
+         "plugin:cypress/recommended"
       ]
    },
    "browserslist": {
@@ -44,6 +45,12 @@
       ]
    },
    "devDependencies": {
-      "@types/react-router-dom": "^5.3.3"
+      "@testing-library/react": "^13.4.0",
+      "@types/react-router-dom": "^5.3.3",
+      "cypress": "^10.11.0",
+      "eslint-plugin-cypress": "^2.12.1",
+      "fetch-mock": "^9.11.0",
+      "jest": "^27.5.1",
+      "react-test-renderer": "^18.2.0"
    }
 }
