@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { Button } from "./button"
 
 describe("button tests", () => {
@@ -22,6 +22,13 @@ describe("button tests", () => {
    it("button with loading", () => {
       const { asFragment } = render(<Button isLoader={true} />)
       expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("test call callback", () => {
+      const callback = jest.fn()
+      render(<Button onClick={callback} />)
+      fireEvent.click(screen.getByRole("button"))
+      expect(callback).toBeCalledTimes(1)
    })
 
 })
