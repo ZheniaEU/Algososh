@@ -1,11 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { Button } from "./button"
 
-describe("button tests", () => {
+describe("Button tests", () => {
 
    it("button with text", () => {
-      const text = "Кнопка с текстом"
-      const { asFragment } = render(<Button text={text} />)
+      const { asFragment } = render(<Button text={"Кнопка с текстом"} />)
       expect(asFragment()).toMatchSnapshot()
    })
 
