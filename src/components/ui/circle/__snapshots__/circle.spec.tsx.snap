@@ -1,5 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Circle tests Circle snapshot Circle with letter as number 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle snapshot Circle with letter as string 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle snapshot Circle with tail 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        tail
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle snapshot Circle without letter 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
 exports[`Circle tests Circle tests 1`] = `
 <DocumentFragment>
   <div
@@ -26,6 +132,195 @@ exports[`Circle tests Circle tests 1`] = `
 `;
 
 exports[`Circle tests Circle with letter 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as  1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as number 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as number 2`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as st 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as string 1`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with letter as string 2`] = `
+<DocumentFragment>
+  <div
+    class="content "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 absolute head element"
+    />
+    <div
+      class="circle   default"
+    >
+      <p
+        class="text text_type_circle text_color_input letter"
+      >
+        5
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 absolute index"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 absolute tail30 element"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Circle tests Circle with tail 1`] = `
 <DocumentFragment>
   <div
     class="content "
