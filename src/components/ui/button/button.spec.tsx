@@ -26,7 +26,7 @@ describe("Button tests", () => {
       })
 
    })
-   
+
    it("test call callback", () => {
       const callback = jest.fn()
       render(<Button onClick={callback} />)

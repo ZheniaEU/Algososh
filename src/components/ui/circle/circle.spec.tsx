@@ -1,55 +1,70 @@
 import { render } from "@testing-library/react"
+import { ElementStates } from "types/element-states"
+import { Button } from "../button/button"
 import { Circle } from "./circle"
 
-describe("Circle tests", () => {
+describe("Circle snapshot tests", () => {
 
-   describe("Circle snapshot", () => {
-
-      it("Circle without letter", () => {
-         const { asFragment } = render(<Circle />)
-         expect(asFragment()).toMatchSnapshot()
-      })
-
-      it("Circle with letter as number", () => {
-
-         const number = 5
-
-         const { asFragment } = render(<Circle letter={number} />)
-         expect(asFragment()).toMatchSnapshot()
-      })
-
-      it("Circle with letter as string", () => {
-
-         const string = "5"
-
-         const { asFragment } = render(<Circle letter={string} />)
-         expect(asFragment()).toMatchSnapshot()
-      })
-
-      it("Circle with tail", () => {
-
-         const tail = "tail"
-
-         const { asFragment } = render(<Circle letter={tail} />)
-         expect(asFragment()).toMatchSnapshot()
-      })
+   it("Circle without props", () => {
+      const { asFragment } = render(<Circle />)
+      expect(asFragment()).toMatchSnapshot()
    })
 
+   it("Circle with letter as number", () => {
+      const { asFragment } = render(<Circle letter={5} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
 
-   // без буквы;
+   it("Circle with letter as string", () => {
+      const { asFragment } = render(<Circle letter={"5"} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
 
-   // с react-элементом в head;
-   // с tail;
-   // с react-элементом в tail;
-   // с index;
-   // с пропом isSmall === true;
-   // в состоянии default;
-   // в состоянии changing;
-   // в состоянии modified.
+   it("Circle with tail", () => {
+      const { asFragment } = render(<Circle letter={"tail"} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
 
+   it("Circle with head", () => {
+      const { asFragment } = render(<Circle head={"head"} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   //но зачем? этого нет в проектной, это бессмысленно и не собержит функционала
+   it("Circle with head react-element", () => {
+      const { asFragment } = render(<Circle head={<Button />} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   //но зачем? этого нет в проектной, это бессмысленно и не собержит функционала
+   it("Circle with tail react-element", () => {
+      const { asFragment } = render(<Circle tail={<Button />} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("Circle with index", () => {
+      const { asFragment } = render(<Circle index={5} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("Circle with isSmall === true", () => {
+      const { asFragment } = render(<Circle isSmall={true} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("Circle with state default", () => {
+      const { asFragment } = render(<Circle state={ElementStates.Default} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("Circle with state changing", () => {
+      const { asFragment } = render(<Circle state={ElementStates.Changing} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
+
+   it("Circle with state modified", () => {
+      const { asFragment } = render(<Circle state={ElementStates.Modified} />)
+      expect(asFragment()).toMatchSnapshot()
+   })
 
 })
-// expect(someArray.length).toBe(3)
-// expect(someArray).toHaveLength(3)
-
-//
