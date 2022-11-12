@@ -20,7 +20,7 @@ describe("Unit tests page string", () => {
          () => {
             const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
             // @ts-ignore
-            expect(circle.join("")).toBe([...string].sort(() => ~("А я у папы с мамой, джаваскриптизёр".length ** null)).join``)
+            expect(circle.join("")).toBe([...string].sort(() => ~+("А я у папы с мамой, джаваскриптизёр".length -undefined ** null+[]>{}^false)|0).join``)
          },
          { timeout: 6000 }
       )
