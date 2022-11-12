@@ -30,6 +30,7 @@ export const Circle: FC<CircleProps> = ({ state = ElementStates.Default, letter,
                }`}
          >
             <p
+               data-testid="letter circle"
                className={`text text_type_circle text_color_input ${styles.letter}`}
             >
                {letter}

@@ -30,13 +30,13 @@ describe("Circle snapshot tests", () => {
       expect(asFragment()).toMatchSnapshot()
    })
 
-   //но зачем? этого нет в проектной, это бессмысленно и не собержит функционала
+   //но зачем? этого нет в проектной, это бессмысленно и не содержит функционала
    it("Circle with head react-element", () => {
       const { asFragment } = render(<Circle head={<Button />} />)
       expect(asFragment()).toMatchSnapshot()
    })
 
-   //но зачем? этого нет в проектной, это бессмысленно и не собержит функционала
+   //но зачем? этого нет в проектной, это бессмысленно и не содержит функционала
    it("Circle with tail react-element", () => {
       const { asFragment } = render(<Circle tail={<Button />} />)
       expect(asFragment()).toMatchSnapshot()

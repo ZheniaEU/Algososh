@@ -27,11 +27,14 @@ describe("Button tests", () => {
 
    })
 
-   it("test call callback", () => {
-      const callback = jest.fn()
-      render(<Button onClick={callback} />)
-      fireEvent.click(screen.getByRole("button"))
-      expect(callback).toBeCalledTimes(1)
-   })
+   describe("Button test with callback", () => {
 
+      it("test call callback", () => {
+         const callback = jest.fn()
+         render(<Button onClick={callback} />)
+         fireEvent.click(screen.getByRole("button"))
+         expect(callback).toBeCalledTimes(1)
+      })
+
+   })
 })
