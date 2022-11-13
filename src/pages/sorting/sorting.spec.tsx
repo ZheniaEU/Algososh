@@ -12,7 +12,7 @@ jest.mock("nanoid", () => {
 jest.setTimeout(1000000)
 //текущие тесты могут идти долго, 4 долгих теста в которых сортируются до 17 элементов,
 // я ускорил анимацию до 100мс, но эти 4 теста могут при максимальных значениях занять целую минуту
-describe("Unit tests with algoritm sorting", () => {
+describe("Unit tests with algoritms sorting", () => {
 
    it("selected ascending", async () => {
 
