@@ -21,7 +21,7 @@ export const selectedSort = async (arr: Array<Tuple>, rule: string, render: Rend
 
          //покраска последнего элемента
          if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Changing
-         await waitSleep(300)
+         await waitSleep(100)
          if (arr.indexOf(arr[j]) === arr.length - 1) arr[j][1] = ElementStates.Default
 
          if ((isAsc && arr[j][0] < arr[min][0]) || (!isAsc && arr[j][0] > arr[min][0])) min = j
@@ -53,7 +53,7 @@ export const bubbleSort = async (arr: Array<Tuple>, rule: string, render: Render
          }
 
          render([...arr])
-         await waitSleep(300)
+         await waitSleep(100)
 
          if ((isAsc && arr[j][0] > arr[j + 1][0]) || (!isAsc && arr[j][0] < arr[j + 1][0]))
             swap(arr, j, j + 1)
