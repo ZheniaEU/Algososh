@@ -1,40 +1,34 @@
 /* eslint-disable*/
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+
 import { BrowserRouter } from "react-router-dom"
 import { SortingPage } from "./sorting"
-import { getArray, randomInteger } from "./utils"
 
+jest.mock("nanoid", () => {
+   return { nanoid: () => Math.random() }
+})
 
+jest.setTimeout(1000000)
 
-
-
-jest.setTimeout(10000)
 describe("Unit tests with algoritm sorting", () => {
-
-
 
    it("test", async () => {
 
-
-    //  fireEvent.click(screen.getByText(/По возрастанию/i))
-
-      // fireEvent.click(screen.getByText(/По убыванию/i))
-
       render(<SortingPage />, { wrapper: BrowserRouter })
+
+      fireEvent.click(screen.getByTestId("selection-radio"))
+      fireEvent.click(screen.getByText(/По возрастанию/i))
 
       await waitFor(
          () => {
-
-            const array = getArray(0, 100, randomInteger(3, 17))
-            expect(array).toEqual(array.sort((a: any, b: any) => b - a))
-
-
+            const column = screen.queryAllByTestId("column").map(e => Number(e.innerHTML))
+            console.log(column)
+            expect(column).toEqual(column.sort((a, b) => a - b))
+            console.log(column)
          },
-         { timeout: 6000 }
-      )
-     // eslint-disable-next-line testing-library/no-debugging-utils
-      screen.debug()
+         { timeout: 10000 }
 
+      )
    })
 })
 
@@ -43,23 +37,3 @@ describe("Unit tests with algoritm sorting", () => {
 // пустой массив;
 // массив из одного элемента;
 // массив из нескольких элементов.
-// it("with an even numbers", async () => {
-//    const string = "Aprell"
-
-//    render(<StringComponent />, { wrapper: BrowserRouter })
-
-//    fireEvent.change(screen.getByPlaceholderText("Введите текст"), {
-//       target: { value: string },
-//    })
-
-//    fireEvent.click(screen.getByText(/Развернуть/i))
-
-//    await waitFor(
-//       () => {
-//          const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
-//          // @ts-ignore
-//          expect(circle.join("")).toBe([...string].sort(() => ~+("А я у папы с мамой, джаваскриптизёр".length -undefined ** null+[]>{}^false)|0).join``)
-//       },
-//       { timeout: 6000 }
-//    )
-// })

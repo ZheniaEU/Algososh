@@ -37,7 +37,7 @@ export const SortingPage: FC = () => {
       <SolutionLayout title="Сортировка массива">
          <div className={styles.container} >
             <div className={styles.radio}>
-               <RadioInput label="Выбор" name="sort" disabled={loading} onChange={() => setSort("selection")} checked={sort === "selection"} />
+               <RadioInput data-testid="selection-radio" label="Выбор" name="sort" disabled={loading} onChange={() => setSort("selection")} checked={sort === "selection"} />
                <RadioInput label="Пузырёк" name="sort" disabled={loading} onChange={() => setSort("bubble")} checked={sort === "bubble"} />
             </div>
             <Button text="По возрастанию" sorting={Direction.Ascending} extraClass={styles.button_sort} disabled={loading} onClick={() => sortingArray(sort, "ascending")} />
