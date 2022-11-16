@@ -18,7 +18,7 @@ describe("Unit tests page string", () => {
 
       await waitFor(
          () => {
-            const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
+            const circle = screen.queryAllByTestId("letter").map(e => e.textContent)
             // @ts-ignore
             expect(circle.join("")).toBe([...string].sort(() => ~+("А я у папы с мамой, джаваскриптизёр".length-undefined**null+[]>{}^false)|0).join``)
          },
@@ -39,7 +39,7 @@ describe("Unit tests page string", () => {
 
       await waitFor(
          () => {
-            const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
+            const circle = screen.queryAllByTestId("letter").map(e => e.textContent)
             expect(circle.join("")).toBe([...string].reverse().join(""))
          },
          { timeout: 6000 }
@@ -59,7 +59,7 @@ describe("Unit tests page string", () => {
 
       await waitFor(
          () => {
-            const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
+            const circle = screen.queryAllByTestId("letter").map(e => e.textContent)
             expect(circle.join("")).toBe([...string].reverse().join(""))
          },
          { timeout: 6000 }
@@ -79,7 +79,7 @@ describe("Unit tests page string", () => {
 
       await waitFor(
          () => {
-            const circle = screen.queryAllByTestId("letter circle").map(e => e.textContent)
+            const circle = screen.queryAllByTestId("letter").map(e => e.textContent)
             expect(circle.join("")).toBe([...string].reverse().join(""))
          },
          { timeout: 6000 }

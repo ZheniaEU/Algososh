@@ -12,10 +12,11 @@ exports[`Circle snapshot tests Circle with head 1`] = `
     </div>
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -47,10 +48,11 @@ exports[`Circle snapshot tests Circle with head react-element 1`] = `
     </div>
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -73,10 +75,11 @@ exports[`Circle snapshot tests Circle with index 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -101,10 +104,11 @@ exports[`Circle snapshot tests Circle with isSmall === true 1`] = `
     />
     <div
       class="circle  small default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -127,10 +131,11 @@ exports[`Circle snapshot tests Circle with letter as number 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       >
         5
       </p>
@@ -155,10 +160,11 @@ exports[`Circle snapshot tests Circle with letter as string 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       >
         5
       </p>
@@ -183,10 +189,11 @@ exports[`Circle snapshot tests Circle with state changing 1`] = `
     />
     <div
       class="circle   changing"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -209,10 +216,11 @@ exports[`Circle snapshot tests Circle with state default 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -235,10 +243,11 @@ exports[`Circle snapshot tests Circle with state modified 1`] = `
     />
     <div
       class="circle   modified"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -261,10 +270,11 @@ exports[`Circle snapshot tests Circle with tail 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       >
         tail
       </p>
@@ -289,10 +299,11 @@ exports[`Circle snapshot tests Circle with tail react-element 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p
@@ -324,10 +335,11 @@ exports[`Circle snapshot tests Circle without props 1`] = `
     />
     <div
       class="circle   default"
+      data-testid="circle"
     >
       <p
         class="text text_type_circle text_color_input letter"
-        data-testid="letter circle"
+        data-testid="letter"
       />
     </div>
     <p

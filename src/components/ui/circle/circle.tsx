@@ -25,12 +25,11 @@ export const Circle: FC<CircleProps> = ({ state = ElementStates.Default, letter,
          >
             {head}
          </div>
-         <div
+         <div data-testid="circle"
             className={`${styles.circle}  ${isSmall ? styles.small : ""} ${styles[state]
                }`}
          >
-            <p
-               data-testid="letter circle"
+            <p data-testid="letter"
                className={`text text_type_circle text_color_input ${styles.letter}`}
             >
                {letter}

@@ -1,5 +1,6 @@
 describe("init SPA", () => {
+
    it("open SPA",() => {
-      cy.visit("/")
+      cy.visit("/").get("h1").should("have.text", "МБОУ АЛГОСОШ")
    })
 })
