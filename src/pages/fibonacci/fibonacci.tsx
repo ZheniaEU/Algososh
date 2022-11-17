@@ -20,7 +20,7 @@ export const FibonacciPage: FC = () => {
 
    useEffect(() => {
       if (arr.length !== inputArray.length) {
-         waitSleep(500).then(() => {
+         waitSleep(300).then(() => {
             setArr([...arr, inputArray[arr.length]])
          })
       } else {
