@@ -1,16 +1,16 @@
 describe("fibonacci algorithm", () => {
 
-   it("empty input value and disable button", () => {
+   it("empty input value and disabled button", () => {
       cy.visit("/fibonacci")
       cy.get("input").should("be.empty")
       cy.get("button").should("be.disabled")
    })
 
-   it("number check", async () => {
+   it("number check", () => {
       cy.get("input").type(10)
-      cy.get("button").should("be.enabled").contains("Рассчитать").click()
-      cy.get("button").should("be.disabled")
-      cy.get("[data-testid=\"circle\"]").should("have.length", 10).as("circle")
+      cy.get("input").should("have.value", "10")
+      cy.get("[data-testid=\"fibonacci-solution\"]").as("calculate").should("be.enabled").click().should("be.disabled")
+      cy.get("[data-testid=\"circle\"]").as("circle").should("have.length", 10)
       cy.get("@circle").should(($e) => {
          expect($e.eq(0)).to.have.text("0")
          expect($e.eq(1)).to.have.text("1")
@@ -24,6 +24,6 @@ describe("fibonacci algorithm", () => {
          expect($e.eq(9)).to.have.text("34")
       })
       cy.get("input").should("be.empty")
-      cy.get("button").should("be.disabled")
+      cy.get("@calculate").should("be.disabled")
    })
 })

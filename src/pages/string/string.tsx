@@ -29,7 +29,7 @@ export const StringComponent: FC = () => {
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Развернуть" disabled={!input} isLoader={loading} />
+               <Button data-testid="reverse" type="submit" text="Развернуть" disabled={!input} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>
