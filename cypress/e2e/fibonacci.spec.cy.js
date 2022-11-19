@@ -1,16 +1,23 @@
 describe("fibonacci algorithm", () => {
 
-   it("empty input value and disabled button", () => {
+   const input = "input"
+   const circle = "[data-testid=\"circle\"]"
+   const calculate = "[data-testid=\"fibonacci-solution\"]"
+
+   before("open page", () => {
       cy.visit("/fibonacci")
-      cy.get("input").should("be.empty")
-      cy.get("button").should("be.disabled")
+   })
+
+   it("empty input value and disabled button", () => {
+      cy.get(input).should("be.empty")
+      cy.get(calculate).should("be.disabled")
    })
 
    it("number check", () => {
-      cy.get("input").type(10).should("have.value", "10")
-      cy.get("[data-testid=\"fibonacci-solution\"]").as("calculate").should("be.enabled").click().should("be.disabled")
-      cy.get("[data-testid=\"circle\"]").as("circle").should("have.length", 10)
-      cy.get("@circle").should(($e) => {
+      cy.get(input).type(10).should("have.value", "10")
+      cy.get(calculate).should("be.enabled").click().should("be.disabled")
+      cy.get(circle).should("have.length", 10)
+      cy.get(circle).should(($e) => {
          expect($e.eq(0)).contain("0")
          expect($e.eq(1)).contain("1")
          expect($e.eq(2)).contain("1")
@@ -22,7 +29,7 @@ describe("fibonacci algorithm", () => {
          expect($e.eq(8)).contain("21")
          expect($e.eq(9)).contain("34")
       })
-      cy.get("input").should("be.empty")
-      cy.get("@calculate").should("be.disabled")
+      cy.get(input).should("be.empty")
+      cy.get(calculate).should("be.disabled")
    })
 })
