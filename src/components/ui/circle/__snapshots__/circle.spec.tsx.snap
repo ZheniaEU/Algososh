@@ -7,6 +7,7 @@ exports[`Circle snapshot tests Circle with head 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head string"
+      data-testid="head"
     >
       head
     </div>
@@ -24,6 +25,7 @@ exports[`Circle snapshot tests Circle with head 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -36,6 +38,7 @@ exports[`Circle snapshot tests Circle with head react-element 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     >
       <button
         class="text_type_button text_color_primary button undefined false "
@@ -60,6 +63,7 @@ exports[`Circle snapshot tests Circle with head react-element 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -72,6 +76,7 @@ exports[`Circle snapshot tests Circle with index 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -89,6 +94,7 @@ exports[`Circle snapshot tests Circle with index 1`] = `
     </p>
     <div
       class="text text_type_input text_color_input mt-4 absolute tail60 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -101,6 +107,7 @@ exports[`Circle snapshot tests Circle with isSmall === true 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle  small default"
@@ -116,6 +123,7 @@ exports[`Circle snapshot tests Circle with isSmall === true 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -128,6 +136,7 @@ exports[`Circle snapshot tests Circle with letter as number 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -145,6 +154,7 @@ exports[`Circle snapshot tests Circle with letter as number 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -157,6 +167,7 @@ exports[`Circle snapshot tests Circle with letter as string 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -174,6 +185,7 @@ exports[`Circle snapshot tests Circle with letter as string 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -186,6 +198,7 @@ exports[`Circle snapshot tests Circle with state changing 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   changing"
@@ -201,6 +214,7 @@ exports[`Circle snapshot tests Circle with state changing 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -213,6 +227,7 @@ exports[`Circle snapshot tests Circle with state default 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -228,6 +243,7 @@ exports[`Circle snapshot tests Circle with state default 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -240,6 +256,7 @@ exports[`Circle snapshot tests Circle with state modified 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   modified"
@@ -255,6 +272,7 @@ exports[`Circle snapshot tests Circle with state modified 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -267,6 +285,7 @@ exports[`Circle snapshot tests Circle with tail 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -284,6 +303,7 @@ exports[`Circle snapshot tests Circle with tail 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
@@ -296,6 +316,7 @@ exports[`Circle snapshot tests Circle with tail react-element 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -311,6 +332,7 @@ exports[`Circle snapshot tests Circle with tail react-element 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     >
       <button
         class="text_type_button text_color_primary button undefined false "
@@ -332,6 +354,7 @@ exports[`Circle snapshot tests Circle without props 1`] = `
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-testid="head"
     />
     <div
       class="circle   default"
@@ -347,6 +370,7 @@ exports[`Circle snapshot tests Circle without props 1`] = `
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-testid="tail"
     />
   </div>
 </DocumentFragment>
