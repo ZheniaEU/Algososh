@@ -146,16 +146,16 @@ export const ListPage: FC = () => {
       <SolutionLayout title="Связный список">
          <div className={styles.box}>
             <form className={styles.div} onSubmit={clickHandler}>
-               <Input placeholder="Введите значение" type="text" maxLength={4} isLimitText={true} width="width-short" value={input} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} />
-               <Button type="submit" linkedList="small" text="Добавить в head" disabled={!input} isLoader={loading} />
-               <Button linkedList="small" text="Добавить в tail" disabled={!input} onClick={addToTail} isLoader={loading} />
-               <Button linkedList="small" text="Удалить из head" disabled={list.size === 0} onClick={deleteHead} isLoader={loading} />
-               <Button linkedList="small" text="Удалить из tail" disabled={list.size === 0} onClick={deleteTail} isLoader={loading} />
+               <Input data-testid="input-value" placeholder="Введите значение" type="text" maxLength={4} isLimitText={true} width="width-short" value={input} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} />
+               <Button data-testid="list add head" type="submit" linkedList="small" text="Добавить в head" disabled={!input} isLoader={loading} />
+               <Button data-testid="list add tail" linkedList="small" text="Добавить в tail" disabled={!input} onClick={addToTail} isLoader={loading} />
+               <Button data-testid="list del tail" linkedList="small" text="Удалить из tail" disabled={list.size === 0} onClick={deleteTail} isLoader={loading} />
+               <Button data-testid="list del head" linkedList="small" text="Удалить из head" disabled={list.size === 0} onClick={deleteHead} isLoader={loading} />
             </form>
             <div className={styles.div}>
-               <Input width="width-short" placeholder="Введите индекс" type="text" value={inputIndex} onChange={e => setInputIndex(e.currentTarget.value.replace(/[^\d]/g, ""))} />
-               <Button linkedList="big" text="Добавить по индексу" disabled={(!inputIndex || !input) || parseInt(inputIndex) > list.size} onClick={addElement} isLoader={loading} />
-               <Button linkedList="big" text="Удалить по индексу" disabled={!inputIndex || parseInt(inputIndex) > list.size - 1} onClick={deleteIndex} isLoader={loading} />
+               <Input data-testid="input-index" width="width-short" placeholder="Введите индекс" type="text" value={inputIndex} onChange={e => setInputIndex(e.currentTarget.value.replace(/[^\d]/g, ""))} />
+               <Button data-testid="list del index" linkedList="big" text="Удалить по индексу" disabled={!inputIndex || parseInt(inputIndex) > list.size - 1} onClick={deleteIndex} isLoader={loading} />
+               <Button data-testid="list add index" linkedList="big" text="Добавить по индексу" disabled={(!inputIndex || !input) || parseInt(inputIndex) > list.size} onClick={addElement} isLoader={loading} />
             </div>
          </div>
          <ul className={styles.ul}>

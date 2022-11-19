@@ -24,11 +24,11 @@ describe("stack", () => {
       cy.get(add).should("be.enabled").click()
       cy.get(input).should("be.empty")
       cy.get(circle).should("have.length", 1)
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...changingColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...changingColor)
       })
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...defaultColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...defaultColor)
       })
       cy.get(add).should("be.disabled")
       cy.get(del).should("be.enabled")
@@ -38,43 +38,43 @@ describe("stack", () => {
       cy.get(add).should("be.enabled").click()
 
       cy.get(circle).should("have.length", 2)
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...defaultColor)
-         expect($e.eq(1)).contain("99").css(...changingColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...defaultColor)
+         expect(e.eq(1)).contain("99").css(...changingColor)
       })
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...defaultColor)
-         expect($e.eq(1)).contain("99").css(...defaultColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...defaultColor)
+         expect(e.eq(1)).contain("99").css(...defaultColor)
       })
 
       cy.get(input).type("77").should("have.value", "77")
       cy.get(add).should("be.enabled").click()
 
       cy.get(circle).should("have.length", 3)
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...defaultColor)
-         expect($e.eq(1)).contain("99").css(...defaultColor)
-         expect($e.eq(2)).contain("77").css(...changingColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...defaultColor)
+         expect(e.eq(1)).contain("99").css(...defaultColor)
+         expect(e.eq(2)).contain("77").css(...changingColor)
       })
-      cy.get(circle).should(($e) => {
-         expect($e.eq(0)).contain("5").css(...defaultColor)
-         expect($e.eq(1)).contain("99").css(...defaultColor)
-         expect($e.eq(2)).contain("77").css(...defaultColor)
+      cy.get(circle).should(e => {
+         expect(e.eq(0)).contain("5").css(...defaultColor)
+         expect(e.eq(1)).contain("99").css(...defaultColor)
+         expect(e.eq(2)).contain("77").css(...defaultColor)
       })
    })
 
       it("delete", () => {
          cy.get(circle).should("have.length", 3)
          cy.get(del).click()
-         cy.get(circle).should(($e) => {
-            expect($e.eq(0)).contain("5").css(...defaultColor)
-            expect($e.eq(1)).contain("99").css(...defaultColor)
-            expect($e.eq(2)).contain("77").css(...changingColor)
+         cy.get(circle).should(e => {
+            expect(e.eq(0)).contain("5").css(...defaultColor)
+            expect(e.eq(1)).contain("99").css(...defaultColor)
+            expect(e.eq(2)).contain("77").css(...changingColor)
          })
          cy.get(circle).should("have.length", 2)
-         cy.get(circle).should(($e) => {
-            expect($e.eq(0)).contain("5").css(...defaultColor)
-            expect($e.eq(1)).contain("99").css(...defaultColor)
+         cy.get(circle).should(e => {
+            expect(e.eq(0)).contain("5").css(...defaultColor)
+            expect(e.eq(1)).contain("99").css(...defaultColor)
          })
       })
 
