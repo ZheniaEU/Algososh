@@ -18,7 +18,7 @@ export function App() {
                <Route path="/" exact>
                   <MainPage />
                </Route>
-               <Route path="/recursion">
+               <Route path="/reverse">
                   <StringComponent />
                </Route>
                <Route path="/fibonacci">

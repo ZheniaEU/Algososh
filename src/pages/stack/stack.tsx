@@ -55,9 +55,9 @@ export const StackPage: FC = () => {
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите число" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} value={input} />
-               <Button type="submit" text="Добавить" disabled={!input} isLoader={loading} />
-               <Button type="button" text="Удалить" onClick={deleteElement} disabled={!arr.length} isLoader={loading} />
-               <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={!arr.length} onClick={clear} isLoader={loading} />
+               <Button data-testid="stack-add" type="submit" text="Добавить" disabled={!input} isLoader={loading} />
+               <Button data-testid="stack-delete" type="button" text="Удалить" onClick={deleteElement} disabled={!arr.length} isLoader={loading} />
+               <Button data-testid="stack-clear" type="reset" text="Очистить" extraClass={styles.button_delete} disabled={!arr.length} onClick={clear} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>

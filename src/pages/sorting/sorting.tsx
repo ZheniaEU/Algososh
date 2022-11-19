@@ -13,7 +13,7 @@ import type { Tuple } from "./utils"
 
 import styles from "./sorting.module.css"
 
-export const SortingPage: FC = () => {
+export const SortingPage: FC<{ test?: Array<Tuple> }> = ({ test }) => {
 
    const [arr, setArr] = useState<Array<Tuple>>([])
    const [loading, setLoading] = useState<boolean>(false)
@@ -24,8 +24,9 @@ export const SortingPage: FC = () => {
    }
 
    useEffect(() => {
-      setArr((getArray(0, 100, randomInteger(3, 17))))
-   }, [])
+      if (!test)
+         setArr(getArray(0, 100, randomInteger(3, 17)))
+   }, [test])
 
    const sortingArray = async (sort: "selection" | "bubble", rule: string) => {
       setLoading(true)
@@ -37,8 +38,8 @@ export const SortingPage: FC = () => {
       <SolutionLayout title="Сортировка массива">
          <div className={styles.container} >
             <div className={styles.radio}>
-               <RadioInput label="Выбор" name="sort" disabled={loading} onChange={() => setSort("selection")} checked={sort === "selection"} />
-               <RadioInput label="Пузырёк" name="sort" disabled={loading} onChange={() => setSort("bubble")} checked={sort === "bubble"} />
+               <RadioInput data-testid="selection-radio" label="Выбор" name="sort" disabled={loading} onChange={() => setSort("selection")} checked={sort === "selection"} />
+               <RadioInput data-testid="bubble-radio" label="Пузырёк" name="sort" disabled={loading} onChange={() => setSort("bubble")} checked={sort === "bubble"} />
             </div>
             <Button text="По возрастанию" sorting={Direction.Ascending} extraClass={styles.button_sort} disabled={loading} onClick={() => sortingArray(sort, "ascending")} />
             <Button text="По убыванию" sorting={Direction.Descending} extraClass={styles.button_sort} disabled={loading} onClick={() => sortingArray(sort, "descending")} />

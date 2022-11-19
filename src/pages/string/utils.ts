@@ -30,7 +30,7 @@ export const reverseInput = async (arr: Array<Array<string>>, render: Render) =>
       //отображение текущего состояния
       render([...arr])
       //задержа, если это последний свап убираю задержку
-      start < max ? await waitSleep(500) : await waitSleep(0)
+      start < max ? await waitSleep(1000) : await waitSleep(0)
       start++
       end--
    }

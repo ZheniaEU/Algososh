@@ -20,7 +20,7 @@ export const FibonacciPage: FC = () => {
 
    useEffect(() => {
       if (arr.length !== inputArray.length) {
-         waitSleep(500).then(() => {
+         waitSleep(300).then(() => {
             setArr([...arr, inputArray[arr.length]])
          })
       } else {
@@ -41,7 +41,7 @@ export const FibonacciPage: FC = () => {
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите число" type="number" isLimitText={true} max={19} value={input} onChange={e => setInput(e.currentTarget.value.replace(/[^\d]/g, ""))} />
-               <Button type="submit" text="Рассчитать" disabled={input === "" || parseInt(input) > 19 || parseInt(input) < 1} isLoader={loading} />
+               <Button data-testid="fibonacci-solution" type="submit" text="Рассчитать" disabled={input === "" || parseInt(input) > 19 || parseInt(input) < 1} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>
