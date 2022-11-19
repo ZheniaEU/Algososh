@@ -9,12 +9,12 @@ describe("list", () => {
    const tail = "[data-testid=\"tail\"]"
    const inputValue = "[data-testid=\"input-value\"]"
    const inputIndex = "[data-testid=\"input-index\"]"
-   const addHead = "[data-testid=\"list add head\"]"
-   const addTail = "[data-testid=\"list add tail\"]"
-   const delHead = "[data-testid=\"list del head\"]"
-   const delTail = "[data-testid=\"list del tail\"]"
-   const addIndex = "[data-testid=\"list add index\"]"
-   const delIndex = "[data-testid=\"list del index\"]"
+   const headAdd = "[data-testid=\"list add head\"]"
+   const tailAdd = "[data-testid=\"list add tail\"]"
+   const headDelete = "[data-testid=\"list del head\"]"
+   const tailDelete = "[data-testid=\"list del tail\"]"
+   const indexAdd = "[data-testid=\"list add index\"]"
+   const indexDelete = "[data-testid=\"list del index\"]"
 
    const arr = []
 
@@ -28,12 +28,12 @@ describe("list", () => {
    it("empty inputs value and disabled buttons", () => {
       cy.get(inputValue).should("be.empty")
       cy.get(inputIndex).should("be.empty")
-      cy.get(addHead).should("be.disabled")
-      cy.get(addTail).should("be.disabled")
-      cy.get(delHead).should("be.enabled")
-      cy.get(delTail).should("be.enabled")
-      cy.get(addIndex).should("be.disabled")
-      cy.get(delIndex).should("be.disabled")
+      cy.get(headAdd).should("be.disabled")
+      cy.get(tailAdd).should("be.disabled")
+      cy.get(headDelete).should("be.enabled")
+      cy.get(tailDelete).should("be.enabled")
+      cy.get(indexAdd).should("be.disabled")
+      cy.get(indexDelete).should("be.disabled")
    })
 
    it("rendering", () => {
@@ -71,7 +71,7 @@ describe("list", () => {
    it("add head", () => {
       cy.clock()
       cy.get(inputValue).type("5").should("have.value", "5")
-      cy.get(addHead).click()
+      cy.get(headAdd).click()
       cy.get(circle).should(e => {
          expect(e.eq(0)).contain("5").css(...changingColor)
          expect(e.eq(1)).contain(arr[0]).css(...defaultColor)
@@ -129,7 +129,7 @@ describe("list", () => {
    it("add tail", () => {
       cy.clock()
       cy.get(inputValue).type("9").should("have.value", "9")
-      cy.get(addTail).click()
+      cy.get(tailAdd).click()
       cy.get(circle).should(e => {
          expect(e.eq(1)).contain("5").css(...defaultColor)
          expect(e.eq(3)).contain(arr[0]).css(...defaultColor)
@@ -191,7 +191,7 @@ describe("list", () => {
       cy.clock()
       cy.get(inputValue).type("64").should("have.value", "64")
       cy.get(inputIndex).type("4").should("have.value", "4")
-      cy.get(addIndex).click()
+      cy.get(indexAdd).click()
       cy.tick(1000)
       cy.get(circle).should(e => {
          expect(e.eq(1)).contain("5").css(...defaultColor)
@@ -282,7 +282,7 @@ describe("list", () => {
 
    it("del head", () => {
       cy.clock()
-      cy.get(delHead).click()
+      cy.get(headDelete).click()
       cy.get(circle).should(e => {
          expect(e.eq(0)).contain("5").css(...changingColor)
          expect(e.eq(1)).contain("").css(...defaultColor)
@@ -312,7 +312,7 @@ describe("list", () => {
 
    it("del tail", () => {
       cy.clock()
-      cy.get(delTail).click()
+      cy.get(tailDelete).click()
       cy.get(circle).should(e => {
          expect(e.eq(1)).contain(arr[0]).css(...defaultColor)
          expect(e.eq(3)).contain(arr[1]).css(...defaultColor)
@@ -341,7 +341,7 @@ describe("list", () => {
    it("del by index", () => {
       cy.clock()
       cy.get(inputIndex).type("3").should("have.value", "3")
-      cy.get(delIndex).click()
+      cy.get(indexDelete).click()
       cy.tick(1000)
       cy.get(circle).should(e => {
          expect(e.eq(1)).contain(arr[0]).css(...defaultColor)
