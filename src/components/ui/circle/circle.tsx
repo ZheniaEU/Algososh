@@ -18,7 +18,7 @@ export const Circle: FC<CircleProps> = ({ state = ElementStates.Default, letter,
 
    return (
       <div className={`${styles.content} ${extraClass}`}>
-         <div
+         <div data-testid="head"
             className={`text text_type_input text_color_input mb-4 ${styles.absolute
                } ${styles.head} ${styles[typeof head === "string" ? "string" : "element"]
                }`}
@@ -40,7 +40,7 @@ export const Circle: FC<CircleProps> = ({ state = ElementStates.Default, letter,
          >
             {index?.toString()}
          </p>
-         <div
+         <div data-testid="tail"
             className={`text text_type_input text_color_input mt-4 ${styles.absolute
                } ${index?.toString() ? styles.tail60 : styles.tail30} ${styles[typeof tail === "string" ? "string" : "element"]
                }`}

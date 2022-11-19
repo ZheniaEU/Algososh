@@ -47,9 +47,9 @@ export const QueuePage: FC = () => {
          <form className={styles.form} onSubmit={clickHandler}>
             <div className={styles.input}>
                <Input placeholder="Введите текст" type="text" maxLength={4} isLimitText={true} onChange={e => setInput(e.currentTarget.value)} value={input} />
-               <Button type="submit" text="Добавить" disabled={!input || disableButton === 7} isLoader={loading} />
-               <Button type="button" text="Удалить" onClick={deleteElement} disabled={queue.getHead() === null} isLoader={loading} />
-               <Button type="reset" text="Очистить" extraClass={styles.button_delete} disabled={queue.getHead() === null} onClick={clear} isLoader={loading} />
+               <Button data-testid="queue-add" type="submit" text="Добавить" disabled={!input || disableButton === 7} isLoader={loading} />
+               <Button data-testid="queue-delete" type="button" text="Удалить" onClick={deleteElement} disabled={queue.getHead() === null} isLoader={loading} />
+               <Button data-testid="queue-clear" type="reset" text="Очистить" extraClass={styles.button_delete} disabled={queue.getHead() === null} onClick={clear} isLoader={loading} />
             </div>
          </form>
          <ul className={styles.ul}>
